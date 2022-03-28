@@ -40,7 +40,7 @@ public interface StudentMapper {
      *
      * @return a list of students
      */
-    @Select("select id,name,age from person")
+    @Select("select username, password from Student")
     List<Student> selectAll();
 
     /**

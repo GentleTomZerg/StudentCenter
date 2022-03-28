@@ -1,0 +1,19 @@
+# port
+server:
+  port: 9555
+
+
+spring:
+  # database connection
+  datasource:
+    url: jdbc:mysql://49.232.12.245:3306/studentcenter?useUnicode=true&characterEncoding=UTF-8
+    username: StudentCenter
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  # thymeleaf config
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    encoding: UTF-8
+    suffix: .html
+    mode: HTML

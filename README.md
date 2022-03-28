@@ -10,6 +10,32 @@ Password: 123456
 IP: 127.0.0.1\
 Port: 9555
 
+## Config file
+`prefix: classpath:/templates/`\
+`suffix: .html`\
+会将Controller的`mv.setViewName("allstudents")`\
+自动补全为`"/templates/allstudents.html"`
+```yaml
+# port
+server:
+  port: 9555
+
+spring:
+  # database connection
+  datasource:
+    url: jdbc:mysql://49.232.12.245:3306/studentcenter?useUnicode=true&characterEncoding=UTF-8
+    username: StudentCenter
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  # thymeleaf config
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    encoding: UTF-8
+    suffix: .html
+    mode: HTML
+```
+
 ## Entity
 尽量保证entity里的Class的名字和表的名字一致\
 尽量保证Class里的Field的名字和表中列的名字一致\
@@ -23,8 +49,8 @@ public interface XXXMapper {}
 ```
 
 ## Controller
-@RestController必须写在每个Controller类之上\
 @RestController会将该类下所有的对象类型的返回值包装成JSON发送给浏览器\
+根据不同的需要我们也可以采用Thymeleaf一节中介绍的方法编写Controller\
 @Autowired用在一个set方法之上，spring会自动调用该set方法为我们创建Mapper
 ```java
 @RestController
@@ -38,4 +64,30 @@ public class StudentController {
 }
 ```
 
+## Thymeleaf
+例子见`src/main/resources/templates/allstudents.html`\
+Controller: `ThymeleafController.java`\
+- 向Spring框架返回ModelAndView
+- Thymeleaf用Model中的数据渲染View
+- 最后将渲染好的html发送给浏览器
+```java
+@Controller
+public class ThymeleafController {
+    private StudentMapper studentMapper;
+
+    @Autowired
+    public void setStudentMapper(StudentMapper studentMapper) {
+        this.studentMapper = studentMapper;
+    }
+
+    @RequestMapping("/allstudents")
+    public ModelAndView getAllStudents() {
+        ModelAndView mv = new ModelAndView();
+        List<Student> students = studentMapper.selectAll();
+        mv.addObject("students", students);
+        mv.setViewName("allstudents");
+        return mv;
+    }
+}
+```
 
