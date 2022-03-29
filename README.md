@@ -1,10 +1,10 @@
 # StudentCenter
 ## MySQL
-Version: MySQL 5.5\
-IP: 49.232.12.245\
-Port: 3306\
-Username: StudentCenter\
-Password: 123456
+Version: `MySQL 5.7`\
+IP: `studentcenter.mysql.database.azure.com`\
+Port: `3306`\
+Username: `scenter`\
+Password: `StudentCenter9555`
 
 ## Server
 IP: 127.0.0.1\
@@ -23,9 +23,9 @@ server:
 spring:
   # database connection
   datasource:
-    url: jdbc:mysql://49.232.12.245:3306/studentcenter?useUnicode=true&characterEncoding=UTF-8
-    username: StudentCenter
-    password: 123456
+    url: jdbc:mysql://studentcenter.mysql.database.azure.com:3306/studentcenter
+    username: scenter
+    password: StudentCenter9555
     driver-class-name: com.mysql.jdbc.Driver
   # thymeleaf config
   thymeleaf:
