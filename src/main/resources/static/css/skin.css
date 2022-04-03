@@ -1,0 +1,60 @@
+/* Sign Screens - Wrappers */
+.body-sign .panel-sign .panel-title-sign .title {
+    background-color: #6B2C90;
+}
+
+.body-sign .panel-sign .panel-body {
+    border-top-color: #6B2C90;
+}
+
+.btn-purple {
+    color: #FFFFFF;
+    background-color: #9F65C2;
+    border-color: #9F65C2;
+}
+
+.btn-purple {
+    color: #FFFFFF;
+    background-color: #6B2C90;
+    border-color: #6B2C90;
+}
+
+.btn-purple:hover,
+.btn-purple:focus,
+.btn-purple:active,
+.btn-purple.active,
+.open .dropdown-toggle.btn-purple {
+    color: #FFFFFF;
+    background-color: #390A56;
+    border-color: #6B2C90;
+}
+
+.btn-purple:active,
+.btn-purple.active,
+.open .dropdown-toggle.btn-purple {
+    background-image: none;
+}
+
+.btn-purple.disabled,
+.btn-purple[disabled],
+fieldset[disabled] .btn-purple,
+.btn-purple.disabled:hover,
+.btn-purple[disabled]:hover,
+fieldset[disabled] .btn-purple:hover,
+.btn-purple.disabled:focus,
+.btn-purple[disabled]:focus,
+fieldset[disabled] .btn-purple:focus,
+.btn-purple.disabled:active,
+.btn-purple[disabled]:active,
+fieldset[disabled] .btn-purple:active,
+.btn-purple.disabled.active,
+.btn-purple[disabled].active,
+fieldset[disabled] .btn-purple.active {
+    background-color: #6B2C90;
+    border-color: #6B2C90;
+}
+
+.btn-purple .badge {
+    color: #6B2C90;
+    background-color: #FFFFFF;
+}
