@@ -2,7 +2,6 @@ package com.man.studentcenter.model.mapper;
 
 import com.man.studentcenter.model.entity.Student;
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -13,8 +12,7 @@ public interface StudentMapper {
      *
      * @param student instance of Student
      */
-    @Insert("insert into Student(username,password) values(#{username},#{password})")
-    @Options(useGeneratedKeys = true, keyColumn = "username", keyProperty = "username")
+    @Insert("insert into student(token,status) values(#{token},#{status})")
     void insert(Student student);
 
     /**
@@ -23,32 +21,32 @@ public interface StudentMapper {
      * @param student instance of Student
      * @return 受影响的行数
      */
-    @Update("update Student set username=#{name},password=#{age} where id=#{id}")
-    Long update(Student student);
+    @Update("update student set status=#{status} where token=#{token}")
+    int update(Student student);
 
     /**
      * Operation Delete
      *
-     * @param id student id
+     * @param  token primary key of table student
      * @return 受影响的行数
      */
-    @Delete("delete from person where id=#{id}")
-    Long delete(@Param("id") Long id);
+    @Delete("delete from student where token=#{token}")
+    int delete(@Param("token") int token);
 
     /**
      * 查询所有
      *
-     * @return a list of students
+     * @return a list of all students
      */
-    @Select("select username, password from Student")
+    @Select("select token, status from student")
     List<Student> selectAll();
 
     /**
      * 根据主键查询单个
      *
-     * @param id student id
-     * @return student object whose id equals #{id}
+     * @param token student token
+     * @return student object whose token equals #{token}
      */
-    @Select("select id,name,age from person where id=#{id}")
-    Student selectById(@Param("id") Long id);
+    @Select("select token, status from student where token=#{token}")
+    Student selectByToken(@Param("token") int token);
 }
