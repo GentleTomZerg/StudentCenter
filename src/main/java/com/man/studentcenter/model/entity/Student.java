@@ -2,6 +2,7 @@ package com.man.studentcenter.model.entity;
 
 
 import com.man.studentcenter.model.service.state.State;
+
 import java.util.Objects;
 
 public class Student {
@@ -52,6 +53,9 @@ public class Student {
         return "Student{" +
                 "token=" + token +
                 ", status=" + status +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", state=" + state +
                 '}';
     }
 
@@ -66,5 +70,21 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(token);
+    }
+
+    public void getTimetable() {
+        state.getTimeTable();
+    }
+
+    public void chooseCourse() {
+        state.chooseCourse();
+    }
+
+    public void deleteCourse() {
+        state.deleteCourse();
+    }
+
+    public void setSubscriber() {
+        state.setSubscriber(this);
     }
 }

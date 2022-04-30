@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,8 +14,7 @@ public class StudentController {
     private StudentMapper studentMapper;
 
     @RequestMapping("/student")
-    public String addUser(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+    public String addUser(HttpSession session) {
         if (!session.isNew()) {
             System.out.println("##########");
             System.out.println(session.getAttribute("student"));

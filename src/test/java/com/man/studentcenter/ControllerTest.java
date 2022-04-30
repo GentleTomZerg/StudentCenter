@@ -22,18 +22,14 @@ public class ControllerTest {
     public void testLogin() throws Exception {
         String url = "/";
         // Test TokenLogin
-        Cookie cookie = new Cookie("token", "123");
-        cookie.setMaxAge(5 * 60); // 5 min
         mvc.perform(MockMvcRequestBuilders.post(url)
                 .param("token", "123")
                 .param("loginStrategy", "0")
-                .cookie(cookie)
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
-
     }
 
 
