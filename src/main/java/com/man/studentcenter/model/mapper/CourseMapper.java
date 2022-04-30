@@ -10,7 +10,7 @@ public interface CourseMapper {
     @Select("select * from Course where courseid=#{courseid}")
     Course selectById(@Param("courseid") String courseid);
 
-    @Insert("insert into Course(courseid,cname) values(#{courseid},#{cname})")
+    @Insert("insert into Course(courseid,cname,dependency) values(#{courseid},#{cname},#{dependency})")
     void insert(Course course);
 
 

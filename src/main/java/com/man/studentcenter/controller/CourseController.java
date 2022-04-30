@@ -27,10 +27,11 @@ public class CourseController {
         return "Add: success";
     }
 
+
     @RequestMapping("/deleteCourse/{id}")
-    public String deleteCourse(@PathVariable("id") String id) {
-        courseMapper.delete(id);
-        return "Delete: success";
+    public int deleteCourse(@PathVariable("id") String id) {
+        int result = courseMapper.delete(id);
+        return result;
     }
 
     @RequestMapping("/showCourse/{id}")

@@ -9,10 +9,25 @@ package com.man.studentcenter.model.entity;
 public class Course {
     String courseid;
     String cname;
+    String dependency;
+
+    public Course(String courseid, String cname, String dependency) {
+        this.courseid = courseid;
+        this.cname = cname;
+        this.dependency = dependency;
+    }
 
     public Course(String courseid, String cname) {
         this.courseid = courseid;
         this.cname = cname;
+    }
+
+    public String getDependency() {
+        return dependency;
+    }
+
+    public void setDependency(String dependency) {
+        this.dependency = dependency;
     }
 
     public String getCourseid() {
@@ -31,11 +46,13 @@ public class Course {
         this.cname = cname;
     }
 
+
     @Override
     public String toString() {
         return "Course{" +
-                "courseid=" + courseid +
+                "courseid='" + courseid + '\'' +
                 ", cname='" + cname + '\'' +
+                ", dependency='" + dependency + '\'' +
                 '}';
     }
 }
