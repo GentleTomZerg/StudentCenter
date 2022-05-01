@@ -97,9 +97,9 @@ public class VisitorTest {
         }
         List<Course> list = new ArrayList<>();
         for (OptCourseElement element : sortedList) {
-            if (element.acceptOptIn(visitor, student) == null) continue;
-            System.out.println(element.acceptOptIn(visitor, student));
-            list.add(element.acceptOptIn(visitor, student));
+            if (element.acceptOptOut(visitor, student) == null) continue;
+            System.out.println(element.acceptOptOut(visitor, student));
+            list.add(element.acceptOptOut(visitor, student));
         }
         return list;
     }
