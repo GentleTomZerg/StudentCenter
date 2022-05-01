@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
  * @Describe visit addtional courses that the student wants to add
  **/
 @Component
-public interface OptInVisitor {
-    Course visit(IndependentCourse course, Student student);
-    Course visit(DependentCourse course, Student student);
+public interface OptVisitor {
+    Course visitIn(IndependentCourse course, Student student);
+    Course visitIn(DependentCourse course, Student student);
+    Course visitOut(IndependentCourse course, Student student);
+    Course visitOut(DependentCourse course, Student student);
 }

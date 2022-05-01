@@ -9,6 +9,6 @@ import com.man.studentcenter.model.entity.Student;
  * @Describe visitor pattern - optional courses
  **/
 public interface OptCourseElement  {
-    Course accept(OptInVisitor visitor, Student student);
-    Course accept(OptOutVisitor visitor,Student student);
+    Course acceptOptIn(OptVisitor visitor, Student student);
+    Course acceptOptOut(OptVisitor visitor, Student student);
 }

@@ -17,13 +17,14 @@ public class DependentCourse extends Course implements OptCourseElement {
     }
 
     @Override
-    public Course accept(OptInVisitor visitor, Student student) {
-        return visitor.visit(this, student);
+    public Course acceptOptIn(OptVisitor visitor, Student student) {
+        return visitor.visitIn(this, student);
     }
 
     @Override
-    public Course accept(OptOutVisitor visitor, Student student) {
-        return visitor.visit(this,student);
+    public Course acceptOptOut(OptVisitor visitor, Student student) {
+        return visitor.visitOut(this,student);
     }
+
 
 }
