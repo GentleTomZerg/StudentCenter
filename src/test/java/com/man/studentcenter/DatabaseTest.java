@@ -4,6 +4,7 @@ import com.man.studentcenter.model.entity.Selection;
 import com.man.studentcenter.model.entity.Student;
 import com.man.studentcenter.model.mapper.SelectionMapper;
 import com.man.studentcenter.model.mapper.StudentMapper;
+import com.man.studentcenter.model.service.optin.SelectionService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -71,7 +72,7 @@ public class DatabaseTest {
     void selectionInsert() {
         Selection selection = new Selection();
         selection.setToken(123);
-        selection.setCourseid(100);
+        selection.setCourseid("100");
         selectionMapper.insert(selection);
     }
 
@@ -100,7 +101,7 @@ public class DatabaseTest {
         Selection expectedSelection = new Selection();
         expectedSelection.setId(1);
         expectedSelection.setToken(123);
-        expectedSelection.setCourseid(100);
+        expectedSelection.setCourseid("100");
         Assert.isTrue(selection.equals(expectedSelection), "SelectById Fail");
     }
 
@@ -109,5 +110,53 @@ public class DatabaseTest {
     void selectionDelete() {
         int num = selectionMapper.delete(6);
         Assert.isTrue(num == 1, "Delete selection Fail");
+    }
+
+    @Autowired
+    private SelectionService selectionService;
+
+    @Test
+    @Order(11)
+    void testSelectServiceAdd() {
+        Selection selection = new Selection();
+        selection.setToken(123);
+        selection.setCourseid("2");
+        selectionService.add(selection);
+    }
+
+    @Test
+    @Order(12)
+    void testSelectServiceSelectAll() {
+        int token = 123;
+        List<Selection> selections = selectionService.selectAllByToken(token);
+        Assert.isTrue(selections.size() == 1, "Student:" + token + "takes 1 course.");
+    }
+
+    @Test
+    @Order(13)
+    void testSelectServiceifSelected() {
+        boolean ifSelect = selectionService.ifSelected(123, "2");
+        Assert.isTrue(ifSelect == true, "Student:123 took the courseid:2.");
+    }
+
+    @Test
+    @Order(14)
+    void testSelectServiceifNotSelected() {
+        boolean ifSelect = selectionService.ifSelected(123, "20");
+        Assert.isTrue(ifSelect == false, "Student:123 didn't take the courseid:20.");
+    }
+
+    @Test
+    @Order(15)
+    void testSelectServiceDelete() {
+        int result = selectionService.delete(123, "2");
+        Assert.isTrue(result == 1, "Delete works.");
+    }
+
+    @Test
+    @Order(15)
+    void testSelectServiceDeleteFail() {
+        int result = selectionService.delete(123, "2");
+        Assert.isTrue(result == 0, "Delete non-exist course fails.");
     }
 }
