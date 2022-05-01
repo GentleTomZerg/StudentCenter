@@ -7,6 +7,14 @@ public class Selection {
     private int token;
     private String courseid;
 
+    public Selection() {
+    }
+
+    public Selection(int token, String courseid) {
+        this.token = token;
+        this.courseid = courseid;
+    }
+
     public int getId() {
         return id;
     }

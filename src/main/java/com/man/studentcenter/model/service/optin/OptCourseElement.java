@@ -8,6 +8,6 @@ import com.man.studentcenter.model.entity.Student;
  * @Version 1.0
  * @Describe visitor pattern - optional courses
  **/
-public interface OptCourseElement {
+public interface OptCourseElement  {
     Course accept(OptInVisitor visitor, Student student);
 }
