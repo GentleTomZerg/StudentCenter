@@ -1,4 +1,4 @@
-package com.man.studentcenter.model.service.optin;
+package com.man.studentcenter.model.service.opt;
 
 import com.man.studentcenter.model.entity.Course;
 import com.man.studentcenter.model.entity.Student;
@@ -9,10 +9,9 @@ import com.man.studentcenter.model.entity.Student;
  * @Author ruary
  * @Version 1.0
  * @Describe Courses - a  different type of Optional Courses
- *              that needs no prerequisite.
+ * that needs no prerequisite.
  **/
-public class IndependentCourse extends Course implements OptCourseElement  {
-
+public class IndependentCourse extends Course implements OptCourseElement {
 
 
     public IndependentCourse(String courseid, String cname) {
@@ -22,6 +21,11 @@ public class IndependentCourse extends Course implements OptCourseElement  {
 
     @Override
     public Course accept(OptInVisitor visitor, Student student) {
-        return visitor.visit(this,student);
+        return visitor.visit(this, student);
+    }
+
+    @Override
+    public Course accept(OptOutVisitor visitor, Student student) {
+        return visitor.visit(this, student);
     }
 }

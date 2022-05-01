@@ -1,4 +1,4 @@
-package com.man.studentcenter.model.service.optin;
+package com.man.studentcenter.model.service.opt;
 
 import com.man.studentcenter.model.entity.Selection;
 import com.man.studentcenter.model.mapper.SelectionMapper;
@@ -29,7 +29,7 @@ public class SelectionService {
     }
 
     public boolean ifSelected(int token, String courseid) {
-        return mapper.selectByTokenCourseId(token, courseid) != null ? true : false;
+        return mapper.selectByTokenCourseId(token, courseid) != null;
     }
 
     public List<Selection> selectAllByToken(int token) {

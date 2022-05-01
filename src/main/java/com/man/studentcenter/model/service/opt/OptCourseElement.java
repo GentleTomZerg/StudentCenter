@@ -1,4 +1,4 @@
-package com.man.studentcenter.model.service.optin;
+package com.man.studentcenter.model.service.opt;
 
 import com.man.studentcenter.model.entity.Course;
 import com.man.studentcenter.model.entity.Student;
@@ -10,4 +10,5 @@ import com.man.studentcenter.model.entity.Student;
  **/
 public interface OptCourseElement  {
     Course accept(OptInVisitor visitor, Student student);
+    Course accept(OptOutVisitor visitor,Student student);
 }

@@ -1,9 +1,9 @@
 package com.man.studentcenter.controller;
 
 import com.man.studentcenter.model.entity.Course;
-import com.man.studentcenter.model.service.optin.CourseService;
-import com.man.studentcenter.model.service.optin.DependentCourse;
-import com.man.studentcenter.model.service.optin.OptCourseElement;
+import com.man.studentcenter.model.service.opt.CourseService;
+import com.man.studentcenter.model.service.opt.DependentCourse;
+import com.man.studentcenter.model.service.opt.OptCourseElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.man.studentcenter.model.service.optin;
+package com.man.studentcenter.model.service.opt;
 
 import com.man.studentcenter.model.entity.Course;
 import com.man.studentcenter.model.mapper.CourseMapper;

@@ -1,4 +1,4 @@
-package com.man.studentcenter.model.service.optin;
+package com.man.studentcenter.model.service.opt;
 
 import com.man.studentcenter.model.entity.Course;
 import com.man.studentcenter.model.entity.Student;
@@ -19,6 +19,11 @@ public class DependentCourse extends Course implements OptCourseElement {
     @Override
     public Course accept(OptInVisitor visitor, Student student) {
         return visitor.visit(this, student);
+    }
+
+    @Override
+    public Course accept(OptOutVisitor visitor, Student student) {
+        return visitor.visit(this,student);
     }
 
 }

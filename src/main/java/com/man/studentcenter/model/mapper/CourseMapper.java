@@ -19,4 +19,7 @@ public interface CourseMapper {
 
     @Select("select * from Course")
     List<Course> selectAll();
+
+    @Select("select * from Course where dependency=#{dependency}")
+    List<Course> selectByDependency(@Param("dependency") String dependency);
 }
