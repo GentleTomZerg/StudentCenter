@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Selection {
     private int id;
     private int token;
-    private int courseid;
+    private String courseid;
 
     public int getId() {
         return id;
@@ -23,11 +23,11 @@ public class Selection {
         this.token = token;
     }
 
-    public int getCourseid() {
+    public String getCourseid() {
         return courseid;
     }
 
-    public void setCourseid(int courseid) {
+    public void setCourseid(String courseid) {
         this.courseid = courseid;
     }
 
