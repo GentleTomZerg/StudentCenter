@@ -1,4 +1,4 @@
-package com.man.studentcenter.model.service.decorator;
+package com.man.studentcenter.model.service.email;
 
 /**
  * @ClassName RequireReplyEmailNotifier
