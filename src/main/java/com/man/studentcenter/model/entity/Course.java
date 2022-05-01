@@ -1,5 +1,7 @@
 package com.man.studentcenter.model.entity;
 
+import org.springframework.lang.Nullable;
+
 /**
  * @Data 2022/4/21 20:15
  * @Author ruary
@@ -9,6 +11,7 @@ package com.man.studentcenter.model.entity;
 public class Course {
     String courseid;
     String cname;
+    @Nullable
     String dependency;
 
     public Course(String courseid, String cname, String dependency) {
