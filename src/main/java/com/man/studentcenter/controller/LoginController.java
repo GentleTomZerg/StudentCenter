@@ -1,9 +1,13 @@
 package com.man.studentcenter.controller;
 
+import com.man.studentcenter.model.entity.Newsletter;
 import com.man.studentcenter.model.entity.Student;
+import com.man.studentcenter.model.mapper.SubscribeMapper;
 import com.man.studentcenter.model.service.login.LoginStrategy;
 import com.man.studentcenter.model.service.login.PasswordLogin;
 import com.man.studentcenter.model.service.login.TokenLogin;
+import com.man.studentcenter.model.service.newsletter.AbstractNewsletter;
+import com.man.studentcenter.model.service.newsletter.NewsletterFactory;
 import com.man.studentcenter.model.service.state.Pending;
 import com.man.studentcenter.model.service.state.Registered;
 import com.man.studentcenter.model.service.state.State;
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class LoginController {
@@ -23,6 +29,18 @@ public class LoginController {
     private Registered registered;
     private Pending pending;
     private Unregistered unregistered;
+    private SubscribeMapper subscribeMapper;
+    private NewsletterFactory newsletterFactory;
+
+    @Autowired
+    public void setNewsletterFactory(NewsletterFactory newsletterFactory) {
+        this.newsletterFactory = newsletterFactory;
+    }
+
+    @Autowired
+    public void setSubscribeMapper(SubscribeMapper subscribeMapper) {
+        this.subscribeMapper = subscribeMapper;
+    }
 
     @Autowired
     public void setTokenLogin(TokenLogin tokenLogin) {
@@ -63,15 +81,19 @@ public class LoginController {
 
         ModelAndView mv = new ModelAndView();
         // User has already login, redirect to index
-        if (!session.isNew()) {
+        if (session.getAttribute("student") != null) {
             return new ModelAndView("login");
         }
 
         // No session found
         setLoginStrategy(loginStrategy);
         Student student = this.loginStrategy.login(token, usernameAndPassword);
+        // When a student login
+        // His state will init
+        // His subscribe list will init
         if (student != null) {
             student.setState(getStudentState(student.getStatus()));
+            initSubscribeList(student, subscribeMapper.selectNewsLettersSubscribedByStudent(student.getToken()));
             session.setAttribute("student", student);
             mv.setViewName("login");
         } else {
@@ -90,5 +112,17 @@ public class LoginController {
         if (status == 0) return this.unregistered;
         else if (status == 1) return this.pending;
         else return this.registered;
+    }
+
+    public void initSubscribeList(Student student, List<Newsletter> newsletters) {
+        List<AbstractNewsletter> subscribeList = new ArrayList<>();
+
+        for (Newsletter newsletter : newsletters) {
+            AbstractNewsletter instance = newsletterFactory.buildNewsLetter(newsletter.getNname());
+            if (!subscribeList.contains(instance))
+                subscribeList.add(instance);
+        }
+
+        student.setNewsletters(subscribeList);
     }
 }
