@@ -97,7 +97,7 @@ public class Student implements Observer {
     }
 
     public void deleteCourse(List<String> courseids) {
-        state.deleteCourse(courseids);
+        state.deleteCourse(courseids, this);
     }
 
     public void subscribe(SubscribeMapper subscribeMapper, List<String> newsletters) {

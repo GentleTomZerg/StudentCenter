@@ -14,6 +14,7 @@ import com.man.studentcenter.model.service.state.State;
 import com.man.studentcenter.model.service.state.Unregistered;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -69,7 +70,9 @@ public class LoginController {
     }
 
     @RequestMapping("/")
-    public String login() {
+    public String login(Model model) {
+        Student student = new Student();
+        model.addAttribute("student", student);
         return "login";
     }
 

@@ -39,11 +39,11 @@
         <div class="panel-body">
 
           <!--TODO: Add action.-->
-          <form action="..." method="post">
+          <form th:action="@{/}" method="post" th:object="${student}">
             <label>Login Token</label>
             <div class="input-group mb-3">
               <span class="input-group-text" id="inputGroup-sizing-default"><i class="fa-solid fa-key"></i></span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+              <input type="text" class="form-control" th:field="*{token}">
             </div>
             <div class="row mb-3">
               <div class="col-sm-8">

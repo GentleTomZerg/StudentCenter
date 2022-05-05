@@ -15,13 +15,12 @@ public class Unregistered implements State {
     }
 
     @Override
-    public void chooseCourse() {
-
+    public List<String> chooseCourse(List<String> courseids, Student student) {
+        return null;
     }
-
     @Override
-    public void deleteCourse() {
-
+    public List<String> deleteCourse(List<String> courseids, Student student) {
+        return null;
     }
 
     @Override
