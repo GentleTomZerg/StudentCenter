@@ -11,6 +11,9 @@ public class Course {
     String cname;
     String dependency;
 
+    public Course() {
+    }
+
     public Course(String courseid, String cname, String dependency) {
         this.courseid = courseid;
         this.cname = cname;

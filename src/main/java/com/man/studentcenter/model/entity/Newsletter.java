@@ -10,6 +10,9 @@ public class Newsletter {
     Integer nid;
     String nname;
 
+    public Newsletter() {
+    }
+
     public Newsletter(Integer nid, String nname) {
         this.nid = nid;
         this.nname = nname;

@@ -1,8 +1,10 @@
 package com.man.studentcenter.model.service.state;
 
 import com.man.studentcenter.model.entity.Student;
+import com.man.studentcenter.model.mapper.SubscribeMapper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 @Component
 public class Pending implements State {
@@ -23,7 +25,6 @@ public class Pending implements State {
     }
 
     @Override
-    public void setSubscriber(Student student) {
-
+    public void subscribe(Student student, SubscribeMapper subscribeMapper, List<String> newsletters) {
     }
 }
