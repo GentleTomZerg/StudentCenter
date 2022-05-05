@@ -2,10 +2,7 @@ package com.man.studentcenter.model;
 
 import com.man.studentcenter.model.entity.Course;
 import com.man.studentcenter.model.entity.Student;
-import com.man.studentcenter.model.service.opt.DependentCourse;
-import com.man.studentcenter.model.service.opt.IndependentCourse;
-import com.man.studentcenter.model.service.opt.OptCourseElement;
-import com.man.studentcenter.model.service.opt.OptVisitorImpl;
+import com.man.studentcenter.model.service.opt.OptService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -30,24 +27,44 @@ import java.util.List;
 public class VisitorTest {
 
     @Autowired
-    private OptVisitorImpl visitor;
-
+    private OptService service;
     @Autowired
-    public void setVisitor(OptVisitorImpl visitor) {
-        this.visitor = visitor;
+    public void setService(OptService service) {
+        this.service = service;
     }
 
     @Test
     @Order(1)
     void testAdd() {
-        OptCourseElement[] courseElements = new OptCourseElement[]{
-                new IndependentCourse("COMP62521", "Agile Development"),
-                new DependentCourse("COMP62421", "Querying Data", "COMP60411"),
-                new IndependentCourse("COMP60411", "Modelling Data")};
+        List<String> courseids = new ArrayList<>();
+        courseids.add("4");
+        courseids.add("3");
+        courseids.add("2");
+        courseids.add("5");
+        courseids.add("1");
+
         Student student = new Student();
         student.setToken(999);
-        List<Course> list = addCourse(courseElements, student);
-        Assert.isTrue(list.size() == 0, "TestAdd: " + getMessage(list));
+        List<String> list = service.addCourse(courseids, student);
+        Assert.isTrue(list.size() == 0, "Result: " + list);
+    }
+
+
+
+
+    @Test
+    @Order(2)
+    void testDelete() {
+        List<String> courseids = new ArrayList<>();
+        courseids.add("4");
+        courseids.add("3");
+        courseids.add("2");
+        courseids.add("5");
+        courseids.add("1");
+        Student student = new Student();
+        student.setToken(999);
+        List<String> list = service.deleteCourse(courseids, student);
+        Assert.isTrue(list.size() == 0, "testDelete: " + list);
     }
 
     String getMessage(List<Course> list) {
@@ -58,51 +75,5 @@ public class VisitorTest {
         }
         return "In list:\n" + sb.toString() + "\n---------end of the list ---------";
     }
-
-    List<Course> addCourse(OptCourseElement[] courseElements, Student student) {
-        List<OptCourseElement> sortedList = new ArrayList<>();
-        for (OptCourseElement element : courseElements) {
-            if(element instanceof IndependentCourse) sortedList.add(0, element);
-            else sortedList.add(element);
-        }
-        List<Course> list = new ArrayList<>();
-        for (OptCourseElement element : sortedList) {
-            if (element.acceptOptIn(visitor, student) == null) continue;
-            System.out.println(element.acceptOptIn(visitor, student));
-            list.add(element.acceptOptIn(visitor, student));
-        }
-        return list;
-    }
-
-
-    @Test
-    @Order(2)
-    void testDelete() {
-        OptCourseElement[] courseElements = new OptCourseElement[]{
-                new IndependentCourse("COMP60411", "Modelling Data"),
-                new IndependentCourse("COMP62521", "Agile Development"),
-                new DependentCourse("COMP62421", "Querying Data", "COMP60411")};
-        Student student = new Student();
-        student.setToken(999);
-        List<Course> list = deleteCourse(courseElements, student);
-        Assert.isTrue(list.size() == 0, "testDelete: " + getMessage(list));
-    }
-
-
-    List<Course> deleteCourse(OptCourseElement[] courseElements, Student student) {
-        List<OptCourseElement> sortedList = new ArrayList<>();
-        for (OptCourseElement element : courseElements) {
-            if(element instanceof IndependentCourse) sortedList.add(element); //add to the end
-            else sortedList.add(0,element); // process first
-        }
-        List<Course> list = new ArrayList<>();
-        for (OptCourseElement element : sortedList) {
-            if (element.acceptOptOut(visitor, student) == null) continue;
-            System.out.println(element.acceptOptOut(visitor, student));
-            list.add(element.acceptOptOut(visitor, student));
-        }
-        return list;
-    }
-
 
 }

@@ -8,6 +8,7 @@ import com.man.studentcenter.model.mapper.SelectionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,6 @@ import java.util.List;
  * @Author ruary
  * @Version 1.1
  * @Describe every course will have it’s own logic to add.
- *
  **/
 
 @Component
@@ -30,7 +30,7 @@ public class OptVisitorImpl implements OptVisitor {
      * */
     @Override
     public Course visitIn(IndependentCourse course, Student student) {
-        return selectionMapper.insert(new Selection(student.getToken(),course.getCourseid())) == 1? null:course;
+        return selectionMapper.insert(new Selection(student.getToken(), course.getCourseid())) == 1 ? null : course;
     }
 
     /***
@@ -40,10 +40,12 @@ public class OptVisitorImpl implements OptVisitor {
      **/
     @Override
     public Course visitIn(DependentCourse course, Student student) {
-        if(selectionMapper.selectByTokenCourseId(student.getToken(),course.getDependency())==null)
-        return course;
-        else return selectionMapper.insert(new Selection(student.getToken(),course.getCourseid())) == 1? null:course;
+        if (selectionMapper.selectByTokenCourseId(student.getToken(), course.getDependency()) == null)
+            return course;
+        else
+            return selectionMapper.insert(new Selection(student.getToken(), course.getCourseid())) == 1 ? null : course;
     }
+
     @Autowired
     public void setSelectionMapper(SelectionMapper selectionMapper) {
         this.selectionMapper = selectionMapper;
@@ -89,6 +91,27 @@ public class OptVisitorImpl implements OptVisitor {
     @Override
     public Course visitOut(DependentCourse course, Student student) {
         return selectionMapper.deleteByTokenCourseId(student.getToken(), course.getCourseid()) == 1 ? null : course;
+    }
+
+    public List<OptCourseElement> sortedCourses(List<String> courseIds,boolean ifIndependentGoFirst) {
+        List<OptCourseElement> elements = new ArrayList<>();
+        for (String id : courseIds) {
+            Course course = courseMapper.selectById(id);
+            String name = course.getCname();
+            String dependency = course.getDependency();
+            if(ifIndependentGoFirst) {
+                if (dependency == null) elements.add(0, new IndependentCourse(id, name)); // add to the head
+                else elements.add(new DependentCourse(id, name, dependency));
+            }else{
+                if (dependency == null) elements.add(new IndependentCourse(id, name));
+                else elements.add(0,new DependentCourse(id, name, dependency)); // add to the head
+            }
+        }
+        for (OptCourseElement e:elements
+             ) {
+            System.out.println(e.toString());
+        }
+        return elements;
     }
 
 }
