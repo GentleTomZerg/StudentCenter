@@ -14,6 +14,8 @@ public class Activity {
     String start;
     String end;
 
+    public Activity() {
+    }
 
     public Activity(Integer token, String aname, Integer weekday, String start, String end) {
         this.token = token;

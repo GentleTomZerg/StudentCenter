@@ -17,6 +17,9 @@ public class Student implements Observer {
     State state;
     List<AbstractNewsletter> newsletters = new ArrayList<>();
 
+    public Student() {
+    }
+
     public void setState(State state) {
         this.state = state;
     }

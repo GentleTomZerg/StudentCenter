@@ -4,6 +4,9 @@ public class Subscribe {
     int token;
     int nid;
 
+    public Subscribe() {
+    }
+
     public int getToken() {
         return token;
     }

@@ -7,6 +7,9 @@ public class Selection {
     private int token;
     private int courseid;
 
+    public Selection() {
+    }
+
     public int getId() {
         return id;
     }
