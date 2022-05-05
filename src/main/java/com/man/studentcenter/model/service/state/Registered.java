@@ -4,6 +4,7 @@ import com.man.studentcenter.model.entity.Student;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
 import com.man.studentcenter.model.service.newsletter.AbstractNewsletter;
 import com.man.studentcenter.model.service.newsletter.NewsletterFactory;
+import com.man.studentcenter.model.service.opt.OptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,13 @@ import java.util.Map;
 public class Registered implements State {
     private NewsletterFactory newsletterFactory;
     public static Map<String, Integer> newsletterNameToNid = new HashMap<>();
+
+    @Autowired
+    private OptService optService;
+    @Autowired
+    public void setService(OptService service) {
+        this.optService = service;
+    }
 
     static {
         newsletterNameToNid.put("My Manchester News", 1);
@@ -34,13 +42,13 @@ public class Registered implements State {
     }
 
     @Override
-    public void chooseCourse() {
-
+    public List<String> chooseCourse(List<String> courseids, Student student) {
+        return optService.addCourse(courseids,student);
     }
 
     @Override
-    public void deleteCourse() {
-
+    public List<String> deleteCourse(List<String> courseids, Student student) {
+        return optService.deleteCourse(courseids, student);
     }
 
     // Student subscribes several newsletters

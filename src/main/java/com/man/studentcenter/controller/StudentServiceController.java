@@ -1,14 +1,12 @@
 package com.man.studentcenter.controller;
 
 import com.man.studentcenter.model.entity.Student;
-import com.man.studentcenter.model.mapper.StudentMapper;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.w3c.dom.ls.LSInput;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
@@ -42,7 +40,7 @@ public class StudentServiceController {
     }
 
     @RequestMapping("/choose/course")
-    public ModelAndView chooseCourse(HttpSession session) {
+    public ModelAndView chooseCourse(List<String> courseids, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
                 ? null
@@ -52,12 +50,12 @@ public class StudentServiceController {
             return mv;
         }
 
-        student.chooseCourse();
+        student.chooseCourse(courseids);
         return mv;
     }
 
     @RequestMapping("/delete/course")
-    public ModelAndView deleteCourse(HttpSession session) {
+    public ModelAndView deleteCourse(List<String> courseids,HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
                 ? null
@@ -67,7 +65,7 @@ public class StudentServiceController {
             return mv;
         }
 
-        student.deleteCourse();
+        student.deleteCourse(courseids);
         return mv;
     }
 

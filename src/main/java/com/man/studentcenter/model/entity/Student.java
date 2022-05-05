@@ -92,12 +92,12 @@ public class Student implements Observer {
         state.getTimeTable();
     }
 
-    public void chooseCourse() {
-        state.chooseCourse();
+    public void chooseCourse(List<String> courseids) {
+        state.chooseCourse(courseids, this);
     }
 
-    public void deleteCourse() {
-        state.deleteCourse();
+    public void deleteCourse(List<String> courseids) {
+        state.deleteCourse(courseids);
     }
 
     public void subscribe(SubscribeMapper subscribeMapper, List<String> newsletters) {
