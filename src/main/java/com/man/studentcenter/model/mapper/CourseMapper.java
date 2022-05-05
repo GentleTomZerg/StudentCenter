@@ -11,7 +11,7 @@ public interface CourseMapper {
     Course selectById(@Param("courseid") String courseid);
 
     @Insert("insert into Course(courseid,cname,dependency) values(#{courseid},#{cname},#{dependency})")
-    void insert(Course course);
+    Integer insert(Course course);
 
 
     @Delete("delete from Course where courseid=#{courseid}")
@@ -19,4 +19,7 @@ public interface CourseMapper {
 
     @Select("select * from Course")
     List<Course> selectAll();
+
+    @Select("select * from Course where dependency=#{dependency}")
+    List<Course> selectByDependency(@Param("dependency") String dependency);
 }

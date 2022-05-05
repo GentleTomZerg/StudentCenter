@@ -13,7 +13,7 @@ public interface SelectionMapper {
      * @param selection instance of selection
      */
     @Insert("insert into selection(token, courseid) values(#{token},#{courseid})")
-    void insert(Selection selection);
+    int insert(Selection selection);
 
     /**
      * Operation Update
@@ -49,4 +49,28 @@ public interface SelectionMapper {
      */
     @Select("select id, token, courseid from selection where id=#{id}")
     Selection selectById(@Param("id") int id);
+
+    /***
+     * @Description: Query selections by token
+     * @Params: [token]
+     * @Return: List<Selection>: What courses does the student select >
+    **/
+    @Select("select id, token, courseid from selection where token=#{token}")
+    List<Selection> selectAllByToken(@Param("token") int token);
+
+    /***
+     * @Description: Query selections by token and courseid
+     * @Params: [token, courseid]
+     * @Return: Selection: when the student have selected this course; null: not yet
+    **/
+    @Select("select id, token, courseid from selection where token=#{token} and courseid=#{courseid}")
+    Selection selectByTokenCourseId(@Param("token") int token, @Param("courseid") String courseid);
+
+    /***
+     * @Description: Opt-out
+     * @Params: [token, courseid]
+     * @Return: int 1: success; 0: error
+    **/
+    @Delete("delete from selection where token=#{token} and courseid=#{courseid} ")
+    int deleteByTokenCourseId(@Param("token") int token, @Param("courseid") String courseid);
 }

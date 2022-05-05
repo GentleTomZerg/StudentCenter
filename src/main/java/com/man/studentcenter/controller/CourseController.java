@@ -1,7 +1,9 @@
 package com.man.studentcenter.controller;
 
 import com.man.studentcenter.model.entity.Course;
-import com.man.studentcenter.model.mapper.CourseMapper;
+import com.man.studentcenter.model.service.opt.CourseService;
+import com.man.studentcenter.model.service.opt.DependentCourse;
+import com.man.studentcenter.model.service.opt.OptCourseElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,31 +20,29 @@ import java.util.List;
 @RestController
 public class CourseController {
 
-    private CourseMapper courseMapper;
+    @Autowired
+    private CourseService courseService;
 
     @RequestMapping("/addCourse")
-    public String addCourse() {
-        Course course = new Course("COMP13212", "Data Science");
-        courseMapper.insert(course);
-        return "Add: success";
+    public Integer addCourse() {
+        OptCourseElement course = new DependentCourse("4", "Test for opt-in", "3");
+        return courseService.add((Course) course);
     }
-
 
     @RequestMapping("/deleteCourse/{id}")
     public int deleteCourse(@PathVariable("id") String id) {
-        int result = courseMapper.delete(id);
-        return result;
+        return courseService.delete(id);
     }
 
     @RequestMapping("/showCourse/{id}")
     public String showCourse(@PathVariable("id") String id) {
-        Course course = courseMapper.selectById(id);
+        Course course = courseService.selectById(id);
         return course.toString();
     }
 
     @RequestMapping("/showAllCourse")
     public String showAllCourse() {
-        List<Course> alist = courseMapper.selectAll();
+        List<Course> alist = courseService.selectAll();
         StringBuffer sb = new StringBuffer();
         for (Course a : alist) {
             sb.append(a.toString() + " ");
@@ -51,8 +51,8 @@ public class CourseController {
     }
 
     @Autowired
-    public void setCourseMapper(CourseMapper courseMapper) {
-        this.courseMapper = courseMapper;
+    public void setCourseService(CourseService courseService) {
+        this.courseService = courseService;
     }
 
 }

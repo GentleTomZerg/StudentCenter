@@ -71,7 +71,7 @@ public class DatabaseTest {
     void selectionInsert() {
         Selection selection = new Selection();
         selection.setToken(123);
-        selection.setCourseid(100);
+        selection.setCourseid("100");
         selectionMapper.insert(selection);
     }
 
@@ -100,7 +100,7 @@ public class DatabaseTest {
         Selection expectedSelection = new Selection();
         expectedSelection.setId(1);
         expectedSelection.setToken(123);
-        expectedSelection.setCourseid(100);
+        expectedSelection.setCourseid("100");
         Assert.isTrue(selection.equals(expectedSelection), "SelectById Fail");
     }
 
@@ -110,4 +110,5 @@ public class DatabaseTest {
         int num = selectionMapper.delete(6);
         Assert.isTrue(num == 1, "Delete selection Fail");
     }
+
 }
