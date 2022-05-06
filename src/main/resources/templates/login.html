@@ -46,7 +46,7 @@
             <label>Login Token</label>
             <div class="input-group mb-3">
               <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
-              <input type="text" class="form-control" th:field="*{token}">
+              <input type="text" class="form-control" th:field="*{token}" required>
             </div>
             <div class="row mb-3">
               <div class="col-sm-8">
@@ -67,12 +67,12 @@
                     <label>Username</label>
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-                        <input type="text" class="form-control" th:field="*{username}">
+                        <input type="text" class="form-control" th:field="*{username}" required>
                     </div>
                     <label>Password</label>
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
-                        <input type="text" class="form-control" th:field="*{password}">
+                        <input type="text" class="form-control" th:field="*{password}" required>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-8">

@@ -108,6 +108,11 @@ public class LoginController {
         return mv;
     }
 
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
+    }
+
     public void setLoginStrategy(int loginStrategy) {
         this.loginStrategy = loginStrategy == 0 ? tokenLogin : passwordLogin;
     }
