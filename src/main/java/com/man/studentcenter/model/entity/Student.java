@@ -14,10 +14,19 @@ public class Student implements Observer {
     Integer status;
     String username;
     String password;
+    Integer strategy;
     State state;
     List<AbstractNewsletter> newsletters = new ArrayList<>();
 
     public Student() {
+    }
+
+    public Integer getStrategy() {
+        return strategy;
+    }
+
+    public void setStrategy(Integer strategy) {
+        this.strategy = strategy;
     }
 
     public void setState(State state) {
