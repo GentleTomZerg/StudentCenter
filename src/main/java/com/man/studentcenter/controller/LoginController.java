@@ -72,9 +72,12 @@ public class LoginController {
     }
 
     @RequestMapping("/")
-    public String login(Model model) {
+    public String login(Model model, HttpSession session) {
+        // User has already login, redirect to index
+        if (session.getAttribute("student") != null) {
+            return "index";
+        }
         Student student = new Student();
-        student.setStrategy(0);
         model.addAttribute("student", student);
         return "login";
     }
@@ -84,14 +87,10 @@ public class LoginController {
     public ModelAndView login(@ModelAttribute("student") Student postStudent,
                               HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        // User has already login, redirect to index
-        if (session.getAttribute("student") != null) {
-            return new ModelAndView("login");
-        }
-        System.out.println(postStudent.getStrategy());
+
         // No session found
-        setLoginStrategy(0);
-        Student student = this.loginStrategy.login(postStudent.getToken(), postStudent.getPassword());
+        setLoginStrategy(postStudent);
+        Student student = this.loginStrategy.login(postStudent);
         // When a student login
         // His state will init
         // His subscribe list will init
@@ -99,7 +98,7 @@ public class LoginController {
             student.setState(getStudentState(student.getStatus()));
             initSubscribeList(student, subscribeMapper.selectNewsLettersSubscribedByStudent(student.getToken()));
             session.setAttribute("student", student);
-            mv.setViewName("login");
+            mv.setViewName("index");
         } else {
             mv.setViewName("login");
             mv.addObject("errorMessage", "Login Failed");
@@ -108,8 +107,8 @@ public class LoginController {
         return mv;
     }
 
-    public void setLoginStrategy(int loginStrategy) {
-        this.loginStrategy = loginStrategy == 0 ? tokenLogin : passwordLogin;
+    public void setLoginStrategy(Student student) {
+        this.loginStrategy = student.getToken() != null ? tokenLogin : passwordLogin;
     }
 
     public State getStudentState(int status) {
