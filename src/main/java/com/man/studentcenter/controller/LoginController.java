@@ -72,7 +72,11 @@ public class LoginController {
     }
 
     @RequestMapping("/")
-    public String login(Model model) {
+    public String login(Model model, HttpSession session) {
+        // User has already login, redirect to index
+        if (session.getAttribute("student") != null) {
+            return "index";
+        }
         Student student = new Student();
         model.addAttribute("student", student);
         return "login";
@@ -83,11 +87,6 @@ public class LoginController {
     public ModelAndView login(@ModelAttribute("student") Student postStudent,
                               HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        // User has already login, redirect to index
-        // TODO : 等待index制作完成
-        if (session.getAttribute("student") != null) {
-            return new ModelAndView("login");
-        }
 
         // No session found
         setLoginStrategy(postStudent);
@@ -99,7 +98,7 @@ public class LoginController {
             student.setState(getStudentState(student.getStatus()));
             initSubscribeList(student, subscribeMapper.selectNewsLettersSubscribedByStudent(student.getToken()));
             session.setAttribute("student", student);
-            mv.setViewName("login");
+            mv.setViewName("index");
         } else {
             mv.setViewName("login");
             mv.addObject("errorMessage", "Login Failed");

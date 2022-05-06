@@ -28,9 +28,11 @@
                     <img class="rounded-circle" src="/images/images.png" alt="" style="width: 40px; height: 40px;">
                     <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                 </div>
-                <div class="ms-3">
-                    <h6 class="mb-0">Jhon Doe</h6>
-                    <span>Register Status</span>
+                <div class="ms-3" th:switch="${session.student.status}">
+                    <h6 class="mb-0" th:text = "${session.student.username}">Jhon Doe</h6>
+                    <span th:case="0">Unregistered</span>
+                    <span th:case="1">Pending</span>
+                    <span th:case="2">Registered</span>
                 </div>
             </div>
             <div class="navbar-nav w-100">
@@ -53,15 +55,17 @@
             <a href="#" class="sidebar-toggler flex-shrink-0">
                 <i class="fa fa-bars"></i>
             </a>
-            <div class="navbar-nav align-items-center ms-auto">
+            <div class="navbar-nav align-items-center ms-auto" th:switch="${session.student.status}">
                 <a href="#" class="nav-link" data-bs-toggle="dropdown">
                     <i class="fa fa-tachometer-alt me-2"></i>
-                    <span class="d-none d-lg-inline-flex">Register Status</span>
+                    <span class="d-none d-lg-inline-flex" th:case="0">Unregistered</span>
+                    <span class="d-none d-lg-inline-flex" th:case="1">Pending</span>
+                    <span class="d-none d-lg-inline-flex" th:case="2">Registered</span>
                 </a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                         <img class="rounded-circle me-lg-2" src="/images/images.png" alt="" style="width: 40px; height: 40px;">
-                        <span class="d-none d-lg-inline-flex">John Doe</span>
+                        <span class="d-none d-lg-inline-flex" th:text = "${session.student.username}">John Doe</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="#" class="dropdown-item">Log Out</a>
