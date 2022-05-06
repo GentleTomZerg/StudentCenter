@@ -10,8 +10,8 @@ public class TokenLogin implements LoginStrategy{
     StudentMapper studentMapper;
 
     @Override
-    public Student login(int token, String usernameAndPassword) {
-        return studentMapper.selectByToken(token);
+    public Student login(Student student) {
+        return studentMapper.selectByToken(student.getToken());
     }
 
     @Autowired

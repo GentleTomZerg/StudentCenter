@@ -49,4 +49,8 @@ public interface StudentMapper {
      */
     @Select("select token, status from student where token=#{token}")
     Student selectByToken(@Param("token") int token);
+
+    @Select("select token, status from student where username = #{username} and password = #{password};")
+    Student selectByUsernameAndPassword(@Param("username") String username,
+                                        @Param("password") String password);
 }

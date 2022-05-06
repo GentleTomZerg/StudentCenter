@@ -74,7 +74,6 @@ public class LoginController {
     @RequestMapping("/")
     public String login(Model model) {
         Student student = new Student();
-        student.setStrategy(0);
         model.addAttribute("student", student);
         return "login";
     }
@@ -85,13 +84,14 @@ public class LoginController {
                               HttpSession session) {
         ModelAndView mv = new ModelAndView();
         // User has already login, redirect to index
+        // TODO : 等待index制作完成
         if (session.getAttribute("student") != null) {
             return new ModelAndView("login");
         }
-        System.out.println(postStudent.getStrategy());
+
         // No session found
-        setLoginStrategy(0);
-        Student student = this.loginStrategy.login(postStudent.getToken(), postStudent.getPassword());
+        setLoginStrategy(postStudent);
+        Student student = this.loginStrategy.login(postStudent);
         // When a student login
         // His state will init
         // His subscribe list will init
@@ -108,9 +108,8 @@ public class LoginController {
         return mv;
     }
 
-    // TODO: 根据token是否为null决定strategy
-    public void setLoginStrategy(int loginStrategy) {
-        this.loginStrategy = loginStrategy == 0 ? tokenLogin : passwordLogin;
+    public void setLoginStrategy(Student student) {
+        this.loginStrategy = student.getToken() != null ? tokenLogin : passwordLogin;
     }
 
     public State getStudentState(int status) {
