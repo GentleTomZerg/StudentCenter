@@ -37,28 +37,54 @@
           </h2>
         </div>
         <div class="panel-body">
-
+            <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Sign In Failed!</strong> You should check in on some of those fields below.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
           <!--TODO: Add action.-->
           <form th:action="@{/}" method="post" th:object="${student}">
             <label>Login Token</label>
             <div class="input-group mb-3">
-              <span class="input-group-text" id="inputGroup-sizing-default"><i class="fa-solid fa-key"></i></span>
+              <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
               <input type="text" class="form-control" th:field="*{token}">
             </div>
             <div class="row mb-3">
               <div class="col-sm-8">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="remembercheck">
-                  <label class="form-check-label" for="remembercheck">
-                    Remember Me
-                  </label>
-                </div>
               </div>
               <div class="col-sm-4 text-end">
                 <button type="submit" class="btn btn-purple btn-sm">Sign In</button>
               </div>
             </div>
           </form>
+            <span class="mt-3 mb-3 line-thru text-center text-uppercase">
+                <span style="font-size: x-small">or</span>
+            </span>
+            <div>
+                <p class="text-center" ><a class="btn btn-purple btn-sm" data-bs-toggle="collapse" aria-expanded="false" href="#UsernameLogin" style="text-decoration:none;">Login with Username and Password</a></p>
+            </div>
+            <div class="collapse" id="UsernameLogin">
+                <form th:action="@{/}" method="post" th:object="${student}">
+                    <label>Username</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                        <input type="text" class="form-control" th:field="*{username}">
+                    </div>
+                    <label>Password</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
+                        <input type="text" class="form-control" th:field="*{password}">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-8">
+                        </div>
+                        <div class="col-sm-4 text-end">
+                            <button type="submit" class="btn btn-purple btn-sm">Sign In</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
         </div>
       </div>
     </div>

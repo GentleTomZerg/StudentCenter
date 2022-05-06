@@ -60,3 +60,35 @@ body {
     padding: 33px 33px 15px;
 }
 
+.body-sign .line-thru {
+    display: block;
+    font-size: 12px;
+    font-size: 1.2rem;
+    position: relative;
+}
+.body-sign .line-thru span {
+    color: #CCC;
+    position: relative;
+    z-index: 3;
+}
+.body-sign .line-thru:before {
+    background-color: #FFF;
+    content: '';
+    height: 10px;
+    left: 50%;
+    position: absolute;
+    margin: -5px 0 0 -20px;
+    top: 50%;
+    width: 40px;
+    z-index: 2;
+}
+.body-sign .line-thru:after {
+    border-bottom: 1px solid #DADADA;
+    content: '';
+    display: block;
+    left: 10%;
+    position: absolute;
+    top: 47%;
+    width: 81%;
+    z-index: 1;
+}
