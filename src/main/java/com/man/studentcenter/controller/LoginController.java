@@ -15,8 +15,10 @@ import com.man.studentcenter.model.service.state.Unregistered;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -72,26 +74,24 @@ public class LoginController {
     @RequestMapping("/")
     public String login(Model model) {
         Student student = new Student();
+        student.setStrategy(0);
         model.addAttribute("student", student);
         return "login";
     }
 
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ModelAndView login(int loginStrategy,
-                              int token,
-                              String usernameAndPassword,
+    public ModelAndView login(@ModelAttribute("student") Student postStudent,
                               HttpSession session) {
-
         ModelAndView mv = new ModelAndView();
         // User has already login, redirect to index
         if (session.getAttribute("student") != null) {
             return new ModelAndView("login");
         }
-
+        System.out.println(postStudent.getStrategy());
         // No session found
-        setLoginStrategy(loginStrategy);
-        Student student = this.loginStrategy.login(token, usernameAndPassword);
+        setLoginStrategy(0);
+        Student student = this.loginStrategy.login(postStudent.getToken(), postStudent.getPassword());
         // When a student login
         // His state will init
         // His subscribe list will init
@@ -108,6 +108,7 @@ public class LoginController {
         return mv;
     }
 
+    // TODO: 根据token是否为null决定strategy
     public void setLoginStrategy(int loginStrategy) {
         this.loginStrategy = loginStrategy == 0 ? tokenLogin : passwordLogin;
     }
