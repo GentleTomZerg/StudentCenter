@@ -89,7 +89,7 @@ public class Student implements Observer {
     }
 
     public void getTimetable() {
-        state.getTimeTable();
+        state.getTimeTable(this);
     }
 
     public void addMeeting(Activity activity){

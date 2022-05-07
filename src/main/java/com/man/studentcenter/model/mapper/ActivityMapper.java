@@ -22,4 +22,7 @@ public interface ActivityMapper {
 
     @Select("select id,token,aname,weekday,start,end from Activity where id=#{id}")
     Activity selectById(@Param("id") Integer id);
+
+    @Select("select id,token,aname,weekday,start,end from Activity where token=#{token}")
+    List<Activity> selectByToken(@Param("token") Integer token);
 }

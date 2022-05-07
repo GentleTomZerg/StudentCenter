@@ -2,6 +2,7 @@ package com.man.studentcenter.model.service.state;
 
 import com.man.studentcenter.model.entity.Activity;
 import com.man.studentcenter.model.entity.Student;
+import com.man.studentcenter.model.mapper.ActivityMapper;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
 import com.man.studentcenter.model.service.activity.GroupStudyActivity;
 import com.man.studentcenter.model.service.activity.MeetingActivity;
@@ -27,6 +28,14 @@ public class Registered implements State {
         this.optService = service;
     }
 
+    @Autowired
+    private ActivityMapper activityMapper;
+    @Autowired
+    public void setActivityMapper(ActivityMapper activityMapper) {
+        this.activityMapper = activityMapper;
+    }
+
+
     static {
         newsletterNameToNid.put("My Manchester News", 1);
         newsletterNameToNid.put("The Careers News", 2);
@@ -40,8 +49,8 @@ public class Registered implements State {
     }
 
     @Override
-    public void getTimeTable() {
-
+    public List<Activity> getTimeTable(Student student) {
+        return activityMapper.selectByToken(student.getToken());
     }
 
     @Override

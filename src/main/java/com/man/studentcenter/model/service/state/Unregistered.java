@@ -11,14 +11,15 @@ import java.util.List;
 public class Unregistered implements State {
 
     @Override
-    public void getTimeTable() {
-
+    public List<Activity> getTimeTable(Student student) {
+        return null;
     }
 
     @Override
     public List<String> chooseCourse(List<String> courseids, Student student) {
         return null;
     }
+
     @Override
     public List<String> deleteCourse(List<String> courseids, Student student) {
         return null;
