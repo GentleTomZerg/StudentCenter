@@ -39,7 +39,7 @@ public class SSOSimulatorController {
         student.setToken(888);
         Course course = new Course();
         course.setCourseid("1");
-        return ssOffice.addCourse(student,course);
+        return ssOffice.addCourse(student, course);
     }
 
     @RequestMapping("/sso/deleteCourse") //@PathVariable("id") String id
@@ -48,7 +48,7 @@ public class SSOSimulatorController {
         student.setToken(888);
         Course course = new Course();
         course.setCourseid("1");
-        return ssOffice.deleteCourse(student,course);
+        return ssOffice.deleteCourse(student, course);
     }
 
 

@@ -2,6 +2,7 @@ package com.man.studentcenter.controller;
 
 import com.man.studentcenter.model.entity.Student;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
+import com.man.studentcenter.model.service.email.DailyReminderService;
 import com.man.studentcenter.model.service.sso.SSOffice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,7 +57,7 @@ public class StudentServiceController {
     }
 
     @RequestMapping("/delete/course")
-    public ModelAndView deleteCourse(List<String> courseids,HttpSession session) {
+    public ModelAndView deleteCourse(List<String> courseids, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
                 ? null
@@ -112,7 +113,26 @@ public class StudentServiceController {
         }
 
         System.out.println(student);
-        ssOffice.ifAuthorised(student);
+        ssOffice.ifAuthorised(student);//true:授权； false:未授权
+        return mv;
+    }
+
+    @Autowired
+    private DailyReminderService reminderService;
+
+    @RequestMapping("/reminder")
+    public ModelAndView getRemind(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        Student student = session.getAttribute("student") == null
+                ? null
+                : (Student) session.getAttribute("student");
+
+        if (student == null) {
+            mv.setViewName("login");
+            return mv;
+        }
+
+        if (student.getStatus() == 1) reminderService.scheduled();//前端展示该信息 List<String>
         return mv;
     }
 }
