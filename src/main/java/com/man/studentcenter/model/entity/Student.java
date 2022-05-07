@@ -88,7 +88,7 @@ public class Student implements Observer {
         return Objects.hash(token);
     }
 
-    public void getTimetable() {
+    public List<Activity> getTimetable() {
         state.getTimeTable(this);
     }
 
