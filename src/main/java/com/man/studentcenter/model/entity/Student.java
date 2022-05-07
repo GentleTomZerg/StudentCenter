@@ -92,6 +92,17 @@ public class Student implements Observer {
         state.getTimeTable();
     }
 
+    public void addMeeting(Activity activity){
+      List<Student> students = new ArrayList<>();
+      students.add(this);
+      state.addMeeting(activity,students);
+    };
+
+    public void addGroupStudy(Activity activity, List<Student> list){
+        list.add(this);
+        state.addGroupStudy(activity,list);
+    }
+
     public void chooseCourse(List<String> courseids) {
         state.chooseCourse(courseids, this);
     }

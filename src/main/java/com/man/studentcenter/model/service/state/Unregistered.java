@@ -1,5 +1,6 @@
 package com.man.studentcenter.model.service.state;
 
+import com.man.studentcenter.model.entity.Activity;
 import com.man.studentcenter.model.entity.Student;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
 import org.springframework.stereotype.Component;
@@ -27,5 +28,16 @@ public class Unregistered implements State {
     public void subscribe(Student student, SubscribeMapper subscribeMapper, List<String> newsletters) {
 
     }
+
+    @Override
+    public int addMeeting(Activity activity, List<Student> list) {
+        return 0;
+    }
+
+    @Override
+    public int addGroupStudy(Activity activity, List<Student> list) {
+        return 0;
+    }
+
 
 }
