@@ -2,6 +2,7 @@ package com.man.studentcenter.controller;
 
 import com.man.studentcenter.model.entity.Student;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
+import com.man.studentcenter.model.service.sso.SSOffice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -87,6 +88,31 @@ public class StudentServiceController {
         List<String> newsletterList = Arrays.asList(splittedUserChoice);
         student.subscribe(subscribeMapper, newsletterList);
         student.update();
+        return mv;
+    }
+
+    @Autowired
+    private SSOffice ssOffice;
+
+    @Autowired
+    public void setSsOffice(SSOffice ssOffice) {
+        this.ssOffice = ssOffice;
+    }
+
+    @RequestMapping("/permission")
+    public ModelAndView getPermission(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        Student student = session.getAttribute("student") == null
+                ? null
+                : (Student) session.getAttribute("student");
+
+        if (student == null) {
+            mv.setViewName("login");
+            return mv;
+        }
+
+        System.out.println(student);
+        ssOffice.ifAuthorised(student);
         return mv;
     }
 }
