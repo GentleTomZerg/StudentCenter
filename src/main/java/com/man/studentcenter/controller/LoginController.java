@@ -75,6 +75,7 @@ public class LoginController {
     public String login(Model model, HttpSession session) {
         // User has already login, redirect to index
         if (session.getAttribute("student") != null) {
+            model.addAttribute("page", "index");
             return "index";
         }
         Student student = new Student();
@@ -98,6 +99,7 @@ public class LoginController {
             student.setState(getStudentState(student.getStatus()));
             initSubscribeList(student, subscribeMapper.selectNewsLettersSubscribedByStudent(student.getToken()));
             session.setAttribute("student", student);
+            mv.addObject("page", "index");
             mv.setViewName("index");
         } else {
             mv.setViewName("login");
