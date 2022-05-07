@@ -107,6 +107,13 @@ public class LoginController {
         return mv;
     }
 
+    @RequestMapping("/logout")
+    public String login(HttpSession session) {
+        session.removeAttribute("student");
+        return "redirect:/";
+    }
+
+
     public void setLoginStrategy(Student student) {
         this.loginStrategy = student.getToken() != null ? tokenLogin : passwordLogin;
     }
