@@ -28,6 +28,19 @@ public class Course {
         this.cname = cname;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return courseid.equals(course.courseid);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
+
     public String getDependency() {
         return dependency;
     }

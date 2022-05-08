@@ -29,8 +29,10 @@ public class SSOSimulatorController {
     }
 
     @RequestMapping("/sso")
-    public List<Observer> notifyAllTheSubscribers() {
-        return ssOffice.refreshRegistrarsList();
+    public String notifyAllTheSubscribers() {
+         List<Observer> list = ssOffice.refreshRegistrarsList();
+         System.out.println(list);
+         return "success";
     }
 
     @RequestMapping("/sso/addCourse")
