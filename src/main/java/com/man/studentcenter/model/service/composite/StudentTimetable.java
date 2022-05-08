@@ -10,7 +10,7 @@ import java.util.List;
 public class StudentTimetable {
     String weekdayStartTag = "<h4><a class=\"mt-2 mb-2\">";
     String weekdayEndTag = "</a></h4>";
-    String tableStartTag = "<table class=\"table\">\n" +
+    String tableStartTag = "<table style=\"table-layout: fixed\" class=\"table table-hover\">\n" +
             "                                <thead>\n" +
             "                                <tr>\n" +
             "                                    <th scope=\"col\">#</th>\n" +

@@ -26,10 +26,10 @@
                     <div class="h-100 bg-light rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <i class="fa fa-list me-2"></i>
-                            <h6 class="mb-0">Optional Course List</h6>
+                            <h6 class="mb-0">Available Optional Course List</h6>
                             <a> </a>
                         </div>
-                        <form th:action="@{/choose}" class="row">
+                        <form th:action="@{/choose}" method="post" class="row">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -42,12 +42,12 @@
                                 <tr th:each="course:${courseList}">
                                     <td th:text="${course.courseid}">1</td>
                                     <td th:text="${course.cname}">John</td>
-                                    <td><input class="form-check-input" type="checkbox" th:value="${course.courseid}"
-                                               th:field="*{selList}"></td>
+                                    <td><input id="choose" name="choose" class="form-check-input" type="checkbox" th:value="${course.courseid}"></td>
                                 </tr>
                                 </tbody>
                             </table>
                             <button type="submit" class="btn btn-primary">Confirm</button>
+<!--                            <button name="select" class="btn btn-primary" onclick="loadXMLDoc()">Confirm</button>-->
                         </form>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                             <h6 class="mb-0">Delete Courses</h6>
                             <a></a>
                         </div>
-                        <form th:action="@{/choose}" class="row">
+                        <form th:action="@{/delete}" method="post" class="row">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -71,8 +71,7 @@
                                 <tr th:each="select:${selections}">
                                     <td th:text="${select.courseid}">1</td>
                                     <td th:text="${select.cname}">Example Name</td>
-                                    <td><input class="form-check-input" type="checkbox" th:value="${select.courseid}"
-                                               th:field="*{delList}"></td>
+                                    <td><input id="delete" name="delete" class="form-check-input" type="checkbox" th:value="${select.courseid}"></td>
                                 </tr>
                                 </tbody>
                             </table>
