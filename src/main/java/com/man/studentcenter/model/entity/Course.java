@@ -28,6 +28,10 @@ public class Course {
         this.cname = cname;
     }
 
+    public Course(String courseid) {
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -70,15 +70,10 @@ public class OptVisitorImpl implements OptVisitor {
     @Override
     public Course visitOut(IndependentCourse course, Student student) {
         int token = student.getToken();
-        List<Selection> selections = selectionMapper.selectAllByToken(token);
         List<Course> subsequents = courseMapper.selectByDependency(course.getCourseid());
-        if (subsequents.size() != 0 && selections.size() != 0) {
-            for (Course dependentCourse : subsequents) {
-                for (Selection selected : selections) {
-                    if (dependentCourse.getCourseid() == selected.getCourseid())
-                        return course;//cannot be removed because there is a dependency;
-                }
-            }
+        for (Course c:subsequents
+             ) {
+            if(selectionMapper.selectByTokenCourseId(student.getToken(),c.getCourseid())!=null) return course;
         }
         return selectionMapper.deleteByTokenCourseId(token, course.getCourseid()) == 1 ? null : course;
     }
