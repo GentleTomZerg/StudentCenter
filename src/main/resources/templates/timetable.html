@@ -42,15 +42,16 @@
                             <a data-bs-toggle="collapse" href="#formMeeting">Expand</a>
                         </div>
                         <div class="collapse mt-4" id="formMeeting">
-                            <form>
+                            <form th:action="@{/addMeeting}" method="post" th:object="${activity}">
+                                <input hidden th:value="${session.student.token}" th:field="*{token}">
                                 <div class="mb-3">
                                     <label for="aname" class="form-label">Meeting Name</label>
-                                    <input type="text" class="form-control" id="aname">
+                                    <input type="text" th:field="*{aname}" class="form-control" id="aname" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="weekday" class="form-label">Weekday</label>
-                                    <select class="form-select" id="weekday"
-                                            aria-label="Floating label select example">
+                                    <select class="form-select" id="weekday" th:field="*{weekday}"
+                                            aria-label="Floating label select example" required>
                                         <option value="1">Monday</option>
                                         <option value="2">Tuesday</option>
                                         <option value="3">Wednesday</option>
@@ -60,11 +61,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="start" class="form-label">Start Time</label>
-                                    <input type="time" id="start" class="form-control" required>
+                                    <input type="time" id="start" class="form-control" th:field="*{start}" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="end" class="form-label">End Time</label>
-                                    <input type="time" id="end" class="form-control" required>
+                                    <input type="time" id="end" class="form-control" th:field="*{end}" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </form>
@@ -78,10 +79,11 @@
                             <a data-bs-toggle="collapse" href="#formGroup">Expand</a>
                         </div>
                         <div class="collapse mt-4" id="formGroup">
-                            <form>
+                            <form method="post" th:action="@{/addGroupstudy}" th:object="${activity}">
+                                <input hidden th:value="${session.student.token}" th:field="*{token}">
                                 <div class="mb-3">
                                     <label for="aname2" class="form-label">Meeting Name</label>
-                                    <input type="text" class="form-control" id="aname2">
+                                    <input type="text" th:field="*{aname}" class="form-control" id="aname2">
                                 </div>
                                 <div class="mb-3">
                                     <label for="part" class="form-label">Participants</label>
@@ -89,7 +91,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="weekday2" class="form-label">Weekday</label>
-                                    <select class="form-select" id="weekday2"
+                                    <select class="form-select" id="weekday2" th:field="*{weekday}"
                                             aria-label="Floating label select example">
                                         <option value="1">Monday</option>
                                         <option value="2">Tuesday</option>
@@ -100,11 +102,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="start2" class="form-label">Start Time</label>
-                                    <input type="time" id="start2" class="form-control" required>
+                                    <input type="time" id="start2" class="form-control" th:field="*{start}" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="end2" class="form-label">End Time</label>
-                                    <input type="time" id="end2" class="form-control" required>
+                                    <input type="time" id="end2" class="form-control" th:field="*{end}" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </form>

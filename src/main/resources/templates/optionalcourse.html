@@ -46,7 +46,7 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-primary">Confirm</button>
+                            <button th:unless="${#lists.isEmpty(courseList)}" type="submit" class="btn btn-primary">Confirm</button>
 <!--                            <button name="select" class="btn btn-primary" onclick="loadXMLDoc()">Confirm</button>-->
                         </form>
                     </div>
@@ -75,7 +75,7 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-primary">Confirm</button>
+                            <button th:unless="${#lists.isEmpty(selections)}" type="submit" class="btn btn-primary">Confirm</button>
                         </form>
                     </div>
                 </div>

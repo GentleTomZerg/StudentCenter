@@ -6,6 +6,7 @@ import com.man.studentcenter.model.entity.Selection;
 import com.man.studentcenter.model.entity.Student;
 import com.man.studentcenter.model.mapper.SelectionMapper;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
+import com.man.studentcenter.model.service.activity.MeetingActivity;
 import com.man.studentcenter.model.service.email.DailyReminderService;
 import com.man.studentcenter.model.service.opt.CourseService;
 import com.man.studentcenter.model.service.sso.SSOffice;
@@ -47,6 +48,8 @@ public class StudentServiceController {
             mv.setViewName("login");
             return mv;
         }
+        Activity activity = new Activity();
+        mv.addObject("activity", activity);
         mv.addObject("page", "timetable");
         student.getTimetable();
         return mv;
@@ -138,12 +141,12 @@ public class StudentServiceController {
         if (!student.addMeeting(meeting)) {
             mv.addObject("errorMessage", "Add failed.");
         }
-        mv.setViewName("timetable");
+        mv.setViewName("redirect:/timetable");
         return mv;
     }
 
     @RequestMapping(value = "/addGroupstudy", method = RequestMethod.POST)
-    public ModelAndView addGroupStudy(@ModelAttribute("meeting") Activity activity, @ModelAttribute("students") List<Student> list, HttpSession session) {
+    public ModelAndView addGroupStudy(@ModelAttribute("meeting") Activity activity, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
                 ? null
@@ -152,11 +155,17 @@ public class StudentServiceController {
             mv.setViewName("login");
             return mv;
         }
+        System.out.println(activity);
+        List<Student> list = new ArrayList<>();
+        Student student1 = new Student();
+        student1.setToken(888);
+        list.add(student1);
+        System.out.println(list);
         mv.addObject("page", "timetable");
         if (!student.addGroupStudy(activity, list)) {
             mv.addObject("errorMessage", "Add failed.");
         }
-        mv.setViewName("timetable");
+        mv.setViewName("redirect:/timetable");
         return mv;
     }
 
@@ -209,7 +218,6 @@ public class StudentServiceController {
     @RequestMapping(value = "/choose", method = RequestMethod.POST)
     public ModelAndView chooseCourse(@RequestParam("choose") List<String> choosen, HttpSession session) {
         ModelAndView mv = new ModelAndView();
-        System.out.println(choosen);
         Student student = session.getAttribute("student") == null
                 ? null
                 : (Student) session.getAttribute("student");
@@ -225,7 +233,7 @@ public class StudentServiceController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public ModelAndView deleteCourse(@ModelAttribute("delete") List<String> courseids, HttpSession session) {
+    public ModelAndView deleteCourse(@RequestParam("delete") List<String> courseids, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
                 ? null
