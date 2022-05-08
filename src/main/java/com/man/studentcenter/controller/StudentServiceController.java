@@ -9,10 +9,7 @@ import com.man.studentcenter.model.mapper.SubscribeMapper;
 import com.man.studentcenter.model.service.opt.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -50,8 +47,9 @@ public class StudentServiceController {
     }
 
     @RequestMapping(value = "/choose", method = RequestMethod.POST)
-    public ModelAndView chooseCourse(@ModelAttribute("selList") List<String> courseids, HttpSession session) {
+    public ModelAndView chooseCourse(@RequestParam("choose") List<String> choosen, HttpSession session) {
         ModelAndView mv = new ModelAndView();
+        System.out.println(choosen);
         Student student = session.getAttribute("student") == null
                 ? null
                 : (Student) session.getAttribute("student");
@@ -59,15 +57,15 @@ public class StudentServiceController {
             mv.setViewName("login");
             return mv;
         }
-        mv.setViewName("optionalcourse");
-        List<String> errorCourseIds = student.chooseCourse(courseids);
+        List<String> errorCourseIds = student.chooseCourse(choosen);
+        mv.setViewName("redirect:/opt");
         mv.addObject("errorIds", errorCourseIds);
         mv.addObject("page", "opt");
         return mv;
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public ModelAndView deleteCourse(@ModelAttribute("selList") List<String> courseids, HttpSession session) {
+    public ModelAndView deleteCourse(@ModelAttribute("delete") List<String> courseids, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
                 ? null
@@ -76,9 +74,11 @@ public class StudentServiceController {
             mv.setViewName("login");
             return mv;
         }
-
+        System.out.println(courseids);
         List<String> errorCourseIds = student.deleteCourse(courseids);
+        mv.addObject("errorCourseIds", errorCourseIds);
         mv.addObject("page", "opt");
+        mv.setViewName("redirect:/opt");
         return mv;
     }
 
