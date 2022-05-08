@@ -9,6 +9,7 @@ import com.man.studentcenter.model.mapper.SubscribeMapper;
 import com.man.studentcenter.model.service.opt.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,8 +48,8 @@ public class StudentServiceController {
         return mv;
     }
 
-    @RequestMapping("/choose/course")
-    public ModelAndView chooseCourse(List<String> courseids, HttpSession session) {
+    @RequestMapping(value = "/choose", method = RequestMethod.POST)
+    public ModelAndView chooseCourse(@ModelAttribute("selList") List<String> courseids, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
                 ? null
@@ -60,11 +61,12 @@ public class StudentServiceController {
 
         List<String> errorCourseIds =student.chooseCourse(courseids);
         mv.addObject("errorIds", errorCourseIds);
+        mv.addObject("page", "opt");
         return mv;
     }
 
-    @RequestMapping("/delete/course")
-    public ModelAndView deleteCourse(List<String> courseids,HttpSession session) {
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    public ModelAndView deleteCourse(@ModelAttribute("selList") List<String> courseids,HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
                 ? null
@@ -74,7 +76,8 @@ public class StudentServiceController {
             return mv;
         }
 
-        student.deleteCourse(courseids);
+        List<String> errorCourseIds = student.deleteCourse(courseids);
+        mv.addObject("page", "opt");
         return mv;
     }
 
@@ -105,7 +108,7 @@ public class StudentServiceController {
     @Autowired
     private SelectionMapper selectionMapper;
 
-    @RequestMapping(value = "/opt",method = RequestMethod.POST)
+    @RequestMapping(value = "/opt")
     public ModelAndView getOpt(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
@@ -126,9 +129,9 @@ public class StudentServiceController {
         for(Selection selection: selections){
             Course course = courseService.selectById(selection.getCourseid());
             selectedCourses.add(course);
+            courseList.remove(course);
         }
         mv.addObject("selections",selectedCourses);
-        courseList.removeAll(selectedCourses);
         mv.addObject("courseList",courseList);
         return mv;
     }
