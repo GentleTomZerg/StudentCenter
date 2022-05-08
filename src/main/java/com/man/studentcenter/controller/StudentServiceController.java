@@ -1,7 +1,9 @@
 package com.man.studentcenter.controller;
 
+import com.man.studentcenter.model.entity.Course;
 import com.man.studentcenter.model.entity.Student;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
+import com.man.studentcenter.model.service.opt.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -89,4 +91,27 @@ public class StudentServiceController {
         student.update();
         return mv;
     }
+
+    @Autowired
+    private CourseService courseService;
+
+    @RequestMapping("/opt")
+    public ModelAndView getOpt(HttpSession session, @RequestBody String userChoices) {
+        ModelAndView mv = new ModelAndView();
+        Student student = session.getAttribute("student") == null
+                ? null
+                : (Student) session.getAttribute("student");
+        if (student == null) {
+            mv.setViewName("login");
+            return mv;
+        }
+
+        String[] splittedUserChoice = userChoices.trim().split(",");
+        for (int i = 0; i < splittedUserChoice.length; i++)
+            splittedUserChoice[i] = splittedUserChoice[i].trim();
+
+        List<Course> courseList = courseService.selectAll();
+        return mv;
+    }
+
 }
