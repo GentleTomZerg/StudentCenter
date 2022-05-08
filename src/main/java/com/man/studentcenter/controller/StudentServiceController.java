@@ -112,7 +112,7 @@ public class StudentServiceController {
         }
 
         mv.addObject("page", "reminder");
-        mv.setViewName("emailReminder");
+        mv.setViewName("notification");
         if (student.getStatus() == 1) {
             List<String> stringList = reminderService.scheduled();//前端展示该信息 List<String>
             mv.addObject("emailString", stringList);
@@ -282,7 +282,25 @@ public class StudentServiceController {
             mv.setViewName("login");
             return mv;
         }
-        student.subscribe(subscribeMapper, subscription);
+        List<String> sub_str = new ArrayList<>();
+        for(String i: subscription){
+            switch (i) {
+                case "1":
+                    sub_str.add("My Manchester News");
+                    break;
+                case "2":
+                    sub_str.add("The Careers News");
+                    break;
+                case "3":
+                    sub_str.add("Stellify");
+                    break;
+                case "4":
+                    sub_str.add("Sport News");
+                    break;
+            }
+        }
+        System.out.println(sub_str);
+        student.subscribe(subscribeMapper, sub_str);
         student.update();
         mv.setViewName("redirect:/newsletters");
         return mv;

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/header"></head>
+<body>
+<div class="container-fluid bg-white d-flex p-0">
+    <div th:replace="layout/sidebar"></div>
+    <div class="content">
+        <div th:replace="layout/nvibar"></div>
+        <!-- Page code starts here -->
+        <!-- Status Judgement -->
+        <div class="container-fluid pt-4 px-4" th:if="${session.student.status}ne'1'">
+            <div class="col-sm-12 col-xl-6">
+                <div class="alert alert-primary" role="alert">
+                    <h4 class="alert-heading">Hiya!</h4>
+                    <p>This content is only available to students in a pending state!</p>
+                    <hr>
+                    <p class="mb-0">You do not need the notification function.</p>
+                </div>
+            </div>
+        </div>
+        <!-- End of Status Judgement-->
+        <div th:if="${session.student.status}eq'1'">
+            <div class="container-fluid pt-4 px-4" th:if="${#lists.size(emailString)>0}">
+                <div class="col-sm-12 col-xl-6">
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading">You are notified!</h4>
+                        <p class="mb-0">Following is an example of the email we sent.</p>
+                        <hr>
+                        <div th:each="str:${emailString}">
+                            <p th:text="${str}">a</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- End of page code -->
+    </div>
+</div>
+</body>
+<footer th:replace="layout/footer"></footer>
+</html>
