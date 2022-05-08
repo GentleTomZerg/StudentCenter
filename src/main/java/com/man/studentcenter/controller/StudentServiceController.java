@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ListIterator;
 
 @Controller
 public class StudentServiceController {
@@ -44,7 +45,7 @@ public class StudentServiceController {
         System.out.println("time table");
         System.out.println(student);
         List<Activity> activities = student.getTimetable();
-        mv.addObject("activityList",activities);
+        mv.addObject("activityList", activities);
         return mv;
     }
 
@@ -59,14 +60,14 @@ public class StudentServiceController {
             return mv;
         }
         mv.setViewName("optionalcourse");
-        List<String> errorCourseIds =student.chooseCourse(courseids);
+        List<String> errorCourseIds = student.chooseCourse(courseids);
         mv.addObject("errorIds", errorCourseIds);
         mv.addObject("page", "opt");
         return mv;
     }
 
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
-    public ModelAndView deleteCourse(@ModelAttribute("selList") List<String> courseids,HttpSession session) {
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public ModelAndView deleteCourse(@ModelAttribute("selList") List<String> courseids, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
                 ? null
@@ -128,13 +129,20 @@ public class StudentServiceController {
 
         List<Selection> selections = selectionMapper.selectAllByToken(student.getToken());
         List<Course> selectedCourses = new ArrayList<Course>();
-        for(Selection selection: selections){
+        for (Selection selection : selections) {
             Course course = courseService.selectById(selection.getCourseid());
             selectedCourses.add(course);
-            courseList.remove(course);
+            for (int i = 0; i < courseList.size(); i++) {
+                if (courseList.get(i).getCourseid().equals(course.getCourseid())) {
+                    courseList.remove(i);
+                    break;
+                }
+            }
         }
-        mv.addObject("selections",selectedCourses);
-        mv.addObject("courseList",courseList);
+
+
+        mv.addObject("selections", selectedCourses);
+        mv.addObject("courseList", courseList);
         return mv;
     }
 
