@@ -58,7 +58,7 @@ public class StudentServiceController {
             mv.setViewName("login");
             return mv;
         }
-
+        mv.setViewName("optionalcourse");
         List<String> errorCourseIds =student.chooseCourse(courseids);
         mv.addObject("errorIds", errorCourseIds);
         mv.addObject("page", "opt");
