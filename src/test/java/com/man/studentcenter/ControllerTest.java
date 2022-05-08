@@ -40,7 +40,9 @@ public class ControllerTest {
     @Test
     public void testSubscribe() throws Exception {
         String url = "/subscribe";
-
+        /*
+        *  模仿请求
+        * */
         Student student = new Student();
         student.setToken(222);
         student.setStatus(1);

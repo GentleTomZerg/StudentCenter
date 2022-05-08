@@ -41,7 +41,6 @@
                 <strong>Sign In Failed!</strong> You should check in on some of those fields below.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-          <!--TODO: Add action.-->
           <form th:action="@{/login}" method="post" th:object="${student}">
             <label>Login Token</label>
             <div class="input-group mb-3">

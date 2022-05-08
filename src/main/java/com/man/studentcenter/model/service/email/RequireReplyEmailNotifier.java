@@ -1,5 +1,7 @@
 package com.man.studentcenter.model.service.email;
 
+import java.util.List;
+
 /**
  * @ClassName RequireReplyEmailNotifier
  * @Data 2022/5/1 1:29
@@ -13,19 +15,16 @@ public class RequireReplyEmailNotifier extends NotifierDecorator {
     }
 
     @Override
-    public void assemble() {
+    public List<String> assemble() {
         super.assemble();
-        System.out.print(toString());
+        stringList.add(toString());
+        return stringList;
     }
 
-    @Override
-    public void send(String message) {
-        super.send(message);
-        //logic business
-    }
 
+    //Adding features of RequireReplyEmailNotifier{}.
     @Override
     public String toString() {
-        return "Adding features of RequireReplyEmailNotifier{}.";
+        return " !IMPORTANT! Please Reply us.";
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface ActivityMapper {
     @Insert("insert into Activity(token,aname,weekday,start,end) values(#{token},#{aname},#{weekday},#{start},#{end})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    void insert(Activity activity);
+    int insert(Activity activity);
 
     @Update("update Activity set token = #{token}, aname = #{aname}, weekday = #{weekday}, start = #{start}, end = #{end} where id = #{id}")
     Integer update(Activity activity);

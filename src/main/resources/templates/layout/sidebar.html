@@ -37,8 +37,8 @@
             <a href="/" th:if="${page}eq'index'" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
             <a href="/timetable" th:unless="${page}eq'timetable'" class="nav-item nav-link"><i class="fa fa-calendar-days me-2"></i>Timetable</a>
             <a href="/timetable" th:if="${page}eq'timetable'" class="nav-item nav-link active"><i class="fa fa-calendar-days me-2"></i>Timetable</a>
-            <a href="/showAllCourse" th:unless="${page}eq'opt'" class="nav-item nav-link"><i class="fa fa-graduation-cap me-2"></i>Optional Course</a>
-            <a href="/showAllCourse" th:if="${page}eq'opt'" class="nav-item nav-link active"><i class="fa fa-graduation-cap me-2"></i>Optional Course</a>
+            <a href="/opt" th:unless="${page}eq'opt'" class="nav-item nav-link"><i class="fa fa-graduation-cap me-2"></i>Optional Course</a>
+            <a href="/opt" th:if="${page}eq'opt'" class="nav-item nav-link active"><i class="fa fa-graduation-cap me-2"></i>Optional Course</a>
             <a href="/" th:unless="${page}eq'news'" class="nav-item nav-link"><i class="fa fa-newspaper me-2"></i>Newsletters</a>
             <a href="/" th:if="${page}eq'news'" class="nav-item nav-link active"><i class="fa fa-newspaper me-2"></i>Newsletters</a>
             <a href="/" th:unless="${page}eq'per'" class="nav-item nav-link"><i class="fa fa-shield-halved me-2"></i>Permission</a>

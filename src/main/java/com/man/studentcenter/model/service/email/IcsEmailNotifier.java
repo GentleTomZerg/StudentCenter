@@ -1,5 +1,10 @@
 package com.man.studentcenter.model.service.email;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 /**
  * @ClassName IcsEmailNotifier
  * @Data 2022/5/1 1:18
@@ -20,14 +25,18 @@ public class IcsEmailNotifier extends NotifierDecorator {
     }
 
     @Override
-    public void assemble() {
+    public List<String> assemble() {
         super.assemble();
-        System.out.print(toString());
+        stringList.add(toString());
+        return stringList;
     }
 
-    @Override
+    @Override //Adding features of IcsEmailNotifier{}.
     public String toString() {
-        return "Adding features of IcsEmailNotifier{}.";
+        Date d = new Date();
+        DateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm");
+        String s = sdf.format(d);
+        return s;
     }
 
     public String getIcs() {

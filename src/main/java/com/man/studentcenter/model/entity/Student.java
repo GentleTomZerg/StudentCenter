@@ -92,12 +92,24 @@ public class Student implements Observer {
         return state.getTimeTable(this);
     }
 
-    public void chooseCourse(List<String> courseids) {
-        state.chooseCourse(courseids, this);
+    public boolean addMeeting(Activity activity){
+      List<Student> students = new ArrayList<>();
+      students.add(this);
+      return state.addMeeting(activity,students)==1;
+    };
+
+    public boolean addGroupStudy(Activity activity, List<Student> list){
+        list.add(this);
+        return state.addGroupStudy(activity,list)==1;
     }
 
-    public void deleteCourse(List<String> courseids) {
-        state.deleteCourse(courseids, this);
+    public List<String> chooseCourse(List<String> courseids) {
+
+        return state.chooseCourse(courseids, this);
+    }
+
+    public List<String> deleteCourse(List<String> courseids) {
+        return state.deleteCourse(courseids, this);
     }
 
     public void subscribe(SubscribeMapper subscribeMapper, List<String> newsletters) {

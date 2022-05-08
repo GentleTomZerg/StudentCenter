@@ -1,9 +1,12 @@
 package com.man.studentcenter.model.service.state;
 
+import com.man.studentcenter.model.entity.Activity;
 import com.man.studentcenter.model.entity.Student;
 import com.man.studentcenter.model.mapper.ActivityMapper;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
 import com.man.studentcenter.model.service.composite.StudentTimetable;
+import com.man.studentcenter.model.service.activity.GroupStudyActivity;
+import com.man.studentcenter.model.service.activity.MeetingActivity;
 import com.man.studentcenter.model.service.newsletter.AbstractNewsletter;
 import com.man.studentcenter.model.service.newsletter.NewsletterFactory;
 import com.man.studentcenter.model.service.opt.OptService;
@@ -79,4 +82,24 @@ public class Registered implements State {
                 student.getNewsletters().add(newsletterInstance);
         }
     }
+
+
+    @Autowired
+    private GroupStudyActivity groupStudy;
+
+    @Autowired
+    private MeetingActivity meeting;
+
+
+    @Override
+    public int addMeeting(Activity activity, List<Student> list) {
+        return meeting.buildActivity(activity.getAname(),list,activity.getWeekday(),activity.getStart(),activity.getEnd());
+    }
+
+    @Override
+    public int addGroupStudy(Activity activity, List<Student> list) {
+        return groupStudy.buildActivity(activity.getAname(),list,activity.getWeekday(),activity.getStart(),activity.getEnd());
+    }
+
+
 }

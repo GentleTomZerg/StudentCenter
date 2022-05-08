@@ -1,5 +1,7 @@
 package com.man.studentcenter.model.service.email;
 
+import java.util.List;
+
 /**
  * @ClassName NotifierDecorator
  *
@@ -18,16 +20,11 @@ public class NotifierDecorator implements Notifier {
     }
 
     @Override
-    public void assemble() {
-        this.notifier.assemble();
+    public List<String> assemble() {
+        return this.notifier.assemble();
     }
 
-    @Override
-    public void send(String message) {
-        // https://www.geeksforgeeks.org/send-email-using-java-program/
-        // To do:
-        // send email logic business
-    }
+
 
     @Override
     public String toString() {
