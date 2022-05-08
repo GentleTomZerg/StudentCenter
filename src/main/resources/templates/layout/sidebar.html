@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<div id="spinner"
+     class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div class="sidebar pe-4 pb-3">
+    <nav class="navbar bg-light navbar-light">
+        <div class="mx-auto mt-3 mb-3">
+            <a href="/" class="navbar-brand ms-4 mb-5">
+                <img src="/images/logo.png" height="60" alt="University of Manchester">
+            </a>
+        </div>
+
+        <div class="d-flex align-items-center ms-4 mt-4 mb-4">
+            <div class="position-relative">
+                <img class="rounded-circle" src="/images/images.png" alt="" style="width: 40px; height: 40px;">
+                <div th:if="${session.student.status}eq'2'"
+                     class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                <div th:if="${session.student.status}eq'1'"
+                     class="bg-warning rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                <div th:if="${session.student.status}eq'0'"
+                     class="bg-danger rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+            </div>
+            <div class="ms-3" th:switch="${session.student.status}">
+                <h6 class="mb-0" th:text="${session.student.username}">Jhon Doe</h6>
+                <span th:case="0">Unregistered</span>
+                <span th:case="1">Pending</span>
+                <span th:case="2">Registered</span>
+            </div>
+        </div>
+        <div class="navbar-nav w-100">
+            <a href="/" th:unless="${page}eq'index'" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+            <a href="/" th:if="${page}eq'index'" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+            <a href="/timetable" th:unless="${page}eq'timetable'" class="nav-item nav-link"><i class="fa fa-calendar-days me-2"></i>Timetable</a>
+            <a href="/timetable" th:if="${page}eq'timetable'" class="nav-item nav-link active"><i class="fa fa-calendar-days me-2"></i>Timetable</a>
+            <a href="/showAllCourse" th:unless="${page}eq'opt'" class="nav-item nav-link"><i class="fa fa-graduation-cap me-2"></i>Optional Course</a>
+            <a href="/showAllCourse" th:if="${page}eq'opt'" class="nav-item nav-link active"><i class="fa fa-graduation-cap me-2"></i>Optional Course</a>
+            <a href="/" th:unless="${page}eq'news'" class="nav-item nav-link"><i class="fa fa-newspaper me-2"></i>Newsletters</a>
+            <a href="/" th:if="${page}eq'news'" class="nav-item nav-link active"><i class="fa fa-newspaper me-2"></i>Newsletters</a>
+            <a href="/" th:unless="${page}eq'per'" class="nav-item nav-link"><i class="fa fa-shield-halved me-2"></i>Permission</a>
+            <a href="/" th:if="${page}eq'per'" class="nav-item nav-link active"><i class="fa fa-shield-halved me-2"></i>Permission</a>
+            <a href="/" th:unless="${page}eq'noti'" class="nav-item nav-link"><i class="fa fa-bell me-2"></i>Notification</a>
+            <a href="/" th:if="${page}eq'noti'" class="nav-item nav-link active"><i class="fa fa-bell me-2"></i>Notification</a>
+        </div>
+    </nav>
+</div>
+</html>

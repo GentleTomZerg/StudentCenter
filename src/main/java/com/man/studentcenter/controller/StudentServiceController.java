@@ -32,7 +32,7 @@ public class StudentServiceController {
             mv.setViewName("login");
             return mv;
         }
-
+        mv.addObject("page", "timetable");
         System.out.println("time table");
         System.out.println(student);
         student.getTimetable();

@@ -5,9 +5,11 @@ import com.man.studentcenter.model.service.opt.CourseService;
 import com.man.studentcenter.model.service.opt.DependentCourse;
 import com.man.studentcenter.model.service.opt.OptCourseElement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -41,13 +43,12 @@ public class CourseController {
     }
 
     @RequestMapping("/showAllCourse")
-    public String showAllCourse() {
+    public ModelAndView showAllCourse(ModelAndView mv) {
         List<Course> alist = courseService.selectAll();
-        StringBuffer sb = new StringBuffer();
-        for (Course a : alist) {
-            sb.append(a.toString() + " ");
-        }
-        return sb.toString();
+        mv.addObject("alist", alist);
+        mv.addObject("page", "opt");
+        mv.setViewName("optionalcourse");
+        return mv;
     }
 
     @Autowired
