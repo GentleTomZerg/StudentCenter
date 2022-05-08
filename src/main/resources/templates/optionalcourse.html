@@ -22,6 +22,24 @@
         <!-- End of Status Judgement-->
         <div class="container-fluid pt-4 px-4" th:unless="${session.student.status}ne'2'">
             <div class="row g-4">
+                <div class="col-sm-12 col-xl-12" th:unless="${#lists.isEmpty(param.errorIds)}">
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <i class="fa fa-bomb me-2"></i>
+                        <div>
+                            <h5 class="alert-heading">The following courses were not added successfully.</h5>
+                            <p th:text="${param.errorIds}"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-12" th:unless="${#lists.isEmpty(param.errorCourseIds)}">
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <i class="fa fa-bomb me-2"></i>
+                        <div>
+                            <h5 class="alert-heading">The following courses were not deleted successfully.</h5>
+                            <p th:text="${param.errorCourseIds}"></p>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-sm-12 col-xl-6">
                     <div class="bg-light rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">

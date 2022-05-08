@@ -20,7 +20,7 @@
             </div>
         </div>
         <!-- End of Status Judgement-->
-        <div class="container-fluid pt-4 px-4" th:unless="${session.student.status}ne'2'">
+        <div class="container-fluid pt-1 ps-4 pe-0" th:unless="${session.student.status}ne'2'">
             <div class="row g-4">
                 <form th:action="@{/subscribe}" method="post" class="row g-4">
                     <div class="col-sm-12 col-xl-12">
