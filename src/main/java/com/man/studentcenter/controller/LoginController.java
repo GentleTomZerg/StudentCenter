@@ -138,3 +138,4 @@ public class LoginController {
         student.setNewsletters(subscribeList);
     }
 }
+
