@@ -42,8 +42,7 @@
                                 <tr th:each="course:${courseList}">
                                     <td th:text="${course.courseid}">1</td>
                                     <td th:text="${course.cname}">John</td>
-                                    <td><input class="form-check-input" type="checkbox" value="${course.courseid}"
-                                               id="flexCheckDefault"></td>
+                                    <td><input class="form-check-input" type="checkbox" th:value="${course.courseid}" th:field="*{selList}"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -53,11 +52,27 @@
                 </div>
                 <div class="col-sm-12 col-xl-6">
                     <div class="bg-light rounded p-4 mb-4">
-                        <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
                             <i class="fa fa-plus me-2"></i>
                             <h6 class="mb-0">Selected Courses</h6>
                             <a></a>
                         </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Course ID</th>
+                                <th scope="col">Course Name</th>
+                                <th scope="col">Operation</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="select:${selections}">
+                                <td th:text="${select.courseid}">1</td>
+                                <td th:text="${select.cname}">Example Name</td>
+                                <td><a th:href="@{'/opt/'+${select.courseid}}">Delete</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -114,6 +114,8 @@ public class StudentServiceController {
             mv.setViewName("login");
             return mv;
         }
+        List<String> selectList = new ArrayList<>();
+        mv.addObject("selList", selectList);
         mv.addObject("page", "opt");
         List<Course> courseList = courseService.selectAll();
         mv.setViewName("optionalcourse");
