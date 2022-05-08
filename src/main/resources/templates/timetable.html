@@ -27,153 +27,11 @@
                             <h6 class="mb-0">Timetable</h6>
                             <a href=""> </a>
                         </div>
-                        <!-- Replace Your Code Here -->
-                        <div class="ms-3">
-                            <h4><a class="mt-2 mb-2">Monday</a></h4>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Name</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>9:00-10:00</td>
-                                    <td>Lecture 1</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>11:00-13:00</td>
-                                    <td>Lab Session</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>14:00-16:00</td>
-                                    <td>Group Study</td>
-                                </tr>
-                                </tbody>
-                            </table>
+<!-- Replace Your Code Here -->
+                        <div id="timetable">
+
                         </div>
-                        <div class="ms-3">
-                            <h4><a class="mt-2 mb-2">Tuesday</a></h4>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Name</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>9:00-10:00</td>
-                                    <td>Lecture 1</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>11:00-13:00</td>
-                                    <td>Lab Session</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>14:00-16:00</td>
-                                    <td>Group Study</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="ms-3">
-                            <h4><a class="mt-2 mb-2">Wednesday</a></h4>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Name</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>9:00-10:00</td>
-                                    <td>Lecture 1</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>11:00-13:00</td>
-                                    <td>Lab Session</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>14:00-16:00</td>
-                                    <td>Group Study</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="ms-3">
-                            <h4><a class="mt-2 mb-2">Thursday</a></h4>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Name</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>9:00-10:00</td>
-                                    <td>Lecture 1</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>11:00-13:00</td>
-                                    <td>Lab Session</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>14:00-16:00</td>
-                                    <td>Group Study</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="ms-3">
-                            <h4><a class="mt-2 mb-2">Friday</a></h4>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Name</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>9:00-10:00</td>
-                                    <td>Lecture 1</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>11:00-13:00</td>
-                                    <td>Lab Session</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>14:00-16:00</td>
-                                    <td>Group Study</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- End of Code Replacement -->
+<!-- End of Code Replacement -->
                     </div>
                 </div>
                 <div class="col-sm-12 col-xl-4">
@@ -262,4 +120,20 @@
 </div>
 </body>
 <footer th:replace="layout/footer"></footer>
+
+<script>
+    window.onload = function(){
+        $.ajax({
+            url: "/timetable",//请求地址
+            dataType: "json",//数据格式
+            type: "post",//请求方式
+            async: false,//是否异步请求
+            success: function (data) {   //如何发送成功
+                var html = "";
+                html += data.timetable;
+                $("#timetable").html(html); //在html页面id=timetable的标签里显示html内容
+            },
+        })
+    };
+</script>
 </html>

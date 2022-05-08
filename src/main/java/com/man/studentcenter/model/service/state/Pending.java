@@ -10,8 +10,8 @@ import java.util.List;
 public class Pending implements State {
 
     @Override
-    public void getTimeTable() {
-
+    public String getTimeTable(Student student) {
+        return null;
     }
 
     @Override

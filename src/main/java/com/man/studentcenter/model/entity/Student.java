@@ -88,8 +88,8 @@ public class Student implements Observer {
         return Objects.hash(token);
     }
 
-    public void getTimetable() {
-        state.getTimeTable();
+    public String getTimetable() {
+        return state.getTimeTable(this);
     }
 
     public void chooseCourse(List<String> courseids) {

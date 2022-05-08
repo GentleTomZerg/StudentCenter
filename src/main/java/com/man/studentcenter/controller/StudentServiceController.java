@@ -2,15 +2,20 @@ package com.man.studentcenter.controller;
 
 import com.man.studentcenter.model.entity.Student;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
+import com.man.studentcenter.model.service.composite.StudentTimetable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class StudentServiceController {
@@ -33,10 +38,19 @@ public class StudentServiceController {
             return mv;
         }
         mv.addObject("page", "timetable");
-        System.out.println("time table");
-        System.out.println(student);
         student.getTimetable();
         return mv;
+    }
+
+    @RequestMapping(value = "/timetable", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> ajaxTimetable(HttpSession session) {
+        Student student = session.getAttribute("student") == null
+                ? null
+                : (Student) session.getAttribute("student");
+        Map<String, String> map = new HashMap<>();
+        map.put("timetable", student.getTimetable());
+        return map;
     }
 
     @RequestMapping("/choose/course")

@@ -1,19 +1,18 @@
 package com.man.studentcenter.model.service.composite;
 
 public class Tag implements Html{
-    private String tag;
+    private String startTag;
     private String content;
+    private String endTag;
 
-    public Tag(String tag, String content) {
-        this.tag = tag;
+    public Tag(String startTag, String endTag, String content) {
+        this.startTag = startTag;
+        this.endTag = endTag;
         this.content = content;
     }
 
     @Override
     public String append() {
-        StringBuilder sb = new StringBuilder(tag);
-        sb.insert(1, "/");
-        String endTag = sb.toString();
-        return tag + this.content + endTag;
+        return startTag + this.content + endTag;
     }
 }
