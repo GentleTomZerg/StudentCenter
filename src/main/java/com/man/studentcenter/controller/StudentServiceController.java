@@ -6,7 +6,9 @@ import com.man.studentcenter.model.entity.Selection;
 import com.man.studentcenter.model.entity.Student;
 import com.man.studentcenter.model.mapper.SelectionMapper;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
+import com.man.studentcenter.model.service.email.DailyReminderService;
 import com.man.studentcenter.model.service.opt.CourseService;
+import com.man.studentcenter.model.service.sso.SSOffice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,7 +46,104 @@ public class StudentServiceController {
         System.out.println("time table");
         System.out.println(student);
         List<Activity> activities = student.getTimetable();
-        mv.addObject("activityList",activities);
+        mv.addObject("activityList", activities);
+        return mv;
+    }
+
+    @Autowired
+    private SSOffice ssOffice;
+
+    @Autowired
+    public void setSsOffice(SSOffice ssOffice) {
+        this.ssOffice = ssOffice;
+    }
+
+    @RequestMapping("/permission")
+    public ModelAndView getPermission(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        Student student = session.getAttribute("student") == null
+                ? null
+                : (Student) session.getAttribute("student");
+
+        if (student == null) {
+            mv.setViewName("login");
+            return mv;
+        }
+
+        System.out.println(student);
+
+        mv.addObject("page", "permission");
+        String message = new String();
+        if (ssOffice.ifAuthorised(student)) {
+            message = "You allow the student support office to add or remove courses from your course list.";
+        } else {
+            message = "SSO has no access for your course list.";
+        }
+        mv.addObject("message", message);
+        mv.setViewName("permission");
+        return mv;
+    }
+
+    @Autowired
+    private DailyReminderService reminderService;
+
+    @RequestMapping("/reminder")
+    public ModelAndView getRemind(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        Student student = session.getAttribute("student") == null
+                ? null
+                : (Student) session.getAttribute("student");
+
+        if (student == null) {
+            mv.setViewName("login");
+            return mv;
+        }
+
+        mv.addObject("page", "reminder");
+        mv.setViewName("emailReminder");
+        if (student.getStatus() == 1) {
+            List<String> stringList = reminderService.scheduled();//前端展示该信息 List<String>
+            mv.addObject("emailString", stringList);
+        } else {
+            mv.addObject("emailString", null);
+        }
+        return mv;
+    }
+
+    @RequestMapping(value = "/addMeeting", method = RequestMethod.POST)
+    public ModelAndView addMeeting(@ModelAttribute("meeting") Activity meeting, HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        Student student = session.getAttribute("student") == null
+                ? null
+                : (Student) session.getAttribute("student");
+        if (student == null) {
+            mv.setViewName("login");
+            return mv;
+        }
+        mv.addObject("page", "timetable");
+
+        if (!student.addMeeting(meeting)) {
+            mv.addObject("errorMessage", "Add failed.");
+        }
+        mv.setViewName("timetable");
+        return mv;
+    }
+
+    @RequestMapping(value = "/addGroupstudy", method = RequestMethod.POST)
+    public ModelAndView addGroupStudy(@ModelAttribute("meeting") Activity activity, @ModelAttribute("students") List<Student> list, HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        Student student = session.getAttribute("student") == null
+                ? null
+                : (Student) session.getAttribute("student");
+        if (student == null) {
+            mv.setViewName("login");
+            return mv;
+        }
+        mv.addObject("page", "timetable");
+        if (!student.addGroupStudy(activity, list)) {
+            mv.addObject("errorMessage", "Add failed.");
+        }
+        mv.setViewName("timetable");
         return mv;
     }
 
@@ -75,17 +174,15 @@ public class StudentServiceController {
 
         List<Selection> selections = selectionMapper.selectAllByToken(student.getToken());
         List<Course> selectedCourses = new ArrayList<Course>();
-        for(Selection selection: selections){
+        for (Selection selection : selections) {
             Course course = courseService.selectById(selection.getCourseid());
             selectedCourses.add(course);
             courseList.remove(course);
         }
-        mv.addObject("selections",selectedCourses);
-        mv.addObject("courseList",courseList);
+        mv.addObject("selections", selectedCourses);
+        mv.addObject("courseList", courseList);
         return mv;
     }
-
-
 
 
     @RequestMapping(value = "/choose", method = RequestMethod.POST)
@@ -99,14 +196,14 @@ public class StudentServiceController {
             return mv;
         }
 
-        List<String> errorCourseIds =student.chooseCourse(courseids);
+        List<String> errorCourseIds = student.chooseCourse(courseids);
         mv.addObject("errorIds", errorCourseIds);
         mv.addObject("page", "opt");
         return mv;
     }
 
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
-    public ModelAndView deleteCourse(@ModelAttribute("selList") List<String> courseids,HttpSession session) {
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public ModelAndView deleteCourse(@ModelAttribute("selList") List<String> courseids, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
                 ? null
