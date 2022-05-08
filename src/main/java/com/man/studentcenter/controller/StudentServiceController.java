@@ -8,6 +8,7 @@ import com.man.studentcenter.model.mapper.SelectionMapper;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
 import com.man.studentcenter.model.service.activity.MeetingActivity;
 import com.man.studentcenter.model.service.email.DailyReminderService;
+import com.man.studentcenter.model.service.newsletter.AbstractNewsletter;
 import com.man.studentcenter.model.service.opt.CourseService;
 import com.man.studentcenter.model.service.sso.SSOffice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ListIterator;
+import java.util.*;
 
 @Controller
 public class StudentServiceController {
@@ -191,10 +187,6 @@ public class StudentServiceController {
             mv.setViewName("login");
             return mv;
         }
-        List<String> selectList = new ArrayList<>();
-        mv.addObject("selList", selectList);
-        List<String> deleteList = new ArrayList<>();
-        mv.addObject("delList", deleteList);
         mv.addObject("page", "opt");
         List<Course> courseList = courseService.selectAll();
         mv.setViewName("optionalcourse");
@@ -251,8 +243,8 @@ public class StudentServiceController {
         return mv;
     }
 
-    @RequestMapping("/subscribe")
-    public ModelAndView setSubscriber(HttpSession session, @RequestBody String userChoices) {
+    @RequestMapping("/newsletters")
+    public ModelAndView newsletter(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
                 ? null
@@ -261,14 +253,38 @@ public class StudentServiceController {
             mv.setViewName("login");
             return mv;
         }
+        List<AbstractNewsletter> newsletters = student.getNewsletters();
+        int[] subscribed = new int[4];
+        for(AbstractNewsletter newsletter:newsletters){
+            if(Objects.equals(newsletter.getName(), "My Manchester News")){
+                subscribed[0] = 1;
+            } else if (Objects.equals(newsletter.getName(), "The Careers News")){
+                subscribed[1] = 1;
+            } else if (Objects.equals(newsletter.getName(), "Stellify")){
+                subscribed[2] = 1;
+            } else if (Objects.equals(newsletter.getName(), "Sport News")){
+                subscribed[3] = 1;
+            }
+        }
+        mv.addObject("subed", subscribed);
+        mv.addObject("page", "news");
+        mv.setViewName("newsletters");
+        return mv;
+    }
 
-        String[] splittedUserChoice = userChoices.trim().split(",");
-        for (int i = 0; i < splittedUserChoice.length; i++)
-            splittedUserChoice[i] = splittedUserChoice[i].trim();
-
-        List<String> newsletterList = Arrays.asList(splittedUserChoice);
-        student.subscribe(subscribeMapper, newsletterList);
+    @RequestMapping(value = "/subscribe", method = RequestMethod.POST)
+    public ModelAndView setSubscriber(HttpSession session, @RequestParam("sub") List<String> subscription) {
+        ModelAndView mv = new ModelAndView();
+        Student student = session.getAttribute("student") == null
+                ? null
+                : (Student) session.getAttribute("student");
+        if (student == null) {
+            mv.setViewName("login");
+            return mv;
+        }
+        student.subscribe(subscribeMapper, subscription);
         student.update();
+        mv.setViewName("redirect:/newsletters");
         return mv;
     }
 

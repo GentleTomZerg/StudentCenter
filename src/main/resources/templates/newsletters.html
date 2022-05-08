@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/header"></head>
+<body>
+<div class="container-fluid bg-white d-flex p-0">
+    <div th:replace="layout/sidebar"></div>
+    <div class="content">
+        <div th:replace="layout/nvibar"></div>
+        <!-- Page code starts here -->
+        <!-- Status Judgement -->
+        <div class="container-fluid pt-4 px-4" th:if="${session.student.status}ne'2'">
+            <div class="col-sm-12 col-xl-6">
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Oooops...</h4>
+                    <p>This content is only available for those students who have finished their registration
+                        process.</p>
+                    <hr>
+                    <p class="mb-0">Please come back when you registered!</p>
+                </div>
+            </div>
+        </div>
+        <!-- End of Status Judgement-->
+        <div class="container-fluid pt-4 px-4" th:unless="${session.student.status}ne'2'">
+            <div class="row g-4">
+                <form th:action="@{/subscribe}" method="post" class="row g-4">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="bg-light rounded p-4 mb-2">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <i class="fa fa-newspaper me-2"></i>
+                                <h6 class="mb-0">Manage Subscriptions</h6>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="bg-light rounded p-4 mb-2">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <i class="fa fa-rss me-2"></i>
+                                <p class="mb-0">My Manchester News</p>
+                                <input name="sub" class="form-check-input" type="checkbox" th:checked="${subed[0]}eq'1'" value="1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="bg-light rounded p-4 mb-2">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <i class="fa fa-briefcase me-2"></i>
+                                <p class="mb-0">The Careers News</p>
+                                <input name="sub" class="form-check-input" type="checkbox" th:checked="${subed[1]}eq'1'" value="2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="bg-light rounded p-4 mb-2">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <i class="fa fa-lightbulb me-2"></i>
+                                <p class="mb-0">Stellify</p>
+                                <input name="sub" class="form-check-input" type="checkbox" th:checked="${subed[2]}eq'1'" value="3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="bg-light rounded p-4 mb-2">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <i class="fa fa-basketball me-2"></i>
+                                <p class="mb-0">Sport News</p>
+                                <input name="sub" class="form-check-input" type="checkbox" th:checked="${subed[3]}eq'1'" value="4">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- End of page code -->
+    </div>
+</div>
+</body>
+<footer th:replace="layout/footer"></footer>
+</html>
