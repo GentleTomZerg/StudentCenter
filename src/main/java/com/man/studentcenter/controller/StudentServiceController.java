@@ -1,7 +1,10 @@
 package com.man.studentcenter.controller;
 
+import com.man.studentcenter.model.entity.Activity;
 import com.man.studentcenter.model.entity.Course;
+import com.man.studentcenter.model.entity.Selection;
 import com.man.studentcenter.model.entity.Student;
+import com.man.studentcenter.model.mapper.SelectionMapper;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
 import com.man.studentcenter.model.service.opt.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -38,7 +40,8 @@ public class StudentServiceController {
         mv.addObject("page", "timetable");
         System.out.println("time table");
         System.out.println(student);
-        student.getTimetable();
+        List<Activity> activities = student.getTimetable();
+        mv.addObject("activityList",activities);
         return mv;
     }
 
@@ -53,7 +56,8 @@ public class StudentServiceController {
             return mv;
         }
 
-        student.chooseCourse(courseids);
+        List<String> errorCourseIds =student.chooseCourse(courseids);
+        mv.addObject("errorIds", errorCourseIds);
         return mv;
     }
 
@@ -96,6 +100,9 @@ public class StudentServiceController {
     @Autowired
     private CourseService courseService;
 
+    @Autowired
+    private SelectionMapper selectionMapper;
+
     @RequestMapping("/opt")
     public ModelAndView getOpt(HttpSession session) {
         ModelAndView mv = new ModelAndView();
@@ -110,6 +117,8 @@ public class StudentServiceController {
         List<Course> courseList = courseService.selectAll();
         mv.setViewName("optionalcourse");
         mv.addObject("courseList",courseList);
+        List<Selection> selections = selectionMapper.selectAllByToken(student.getToken());
+        mv.addObject("selections",selections);
         return mv;
     }
 

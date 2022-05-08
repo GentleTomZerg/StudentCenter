@@ -88,12 +88,14 @@ public class Student implements Observer {
         return Objects.hash(token);
     }
 
-    public void getTimetable() {
+    public List<Activity> getTimetable() {
         state.getTimeTable();
+        return null;
     }
 
-    public void chooseCourse(List<String> courseids) {
+    public List<String> chooseCourse(List<String> courseids) {
         state.chooseCourse(courseids, this);
+        return courseids;
     }
 
     public void deleteCourse(List<String> courseids) {
