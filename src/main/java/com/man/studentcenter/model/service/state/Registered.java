@@ -4,6 +4,7 @@ import com.man.studentcenter.model.entity.Activity;
 import com.man.studentcenter.model.entity.Student;
 import com.man.studentcenter.model.mapper.ActivityMapper;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
+import com.man.studentcenter.model.service.composite.StudentTimetable;
 import com.man.studentcenter.model.service.activity.GroupStudyActivity;
 import com.man.studentcenter.model.service.activity.MeetingActivity;
 import com.man.studentcenter.model.service.newsletter.AbstractNewsletter;
@@ -35,6 +36,11 @@ public class Registered implements State {
         this.activityMapper = activityMapper;
     }
 
+    private StudentTimetable studentTimetable;
+    @Autowired
+    public void setStudentTimetable(StudentTimetable studentTimetable) {
+        this.studentTimetable = studentTimetable;
+    }
 
     static {
         newsletterNameToNid.put("My Manchester News", 1);
@@ -49,8 +55,9 @@ public class Registered implements State {
     }
 
     @Override
-    public List<Activity> getTimeTable(Student student) {
-        return activityMapper.selectByToken(student.getToken());
+    public String getTimeTable(Student student) {
+        String html = studentTimetable.buildTimeTable(activityMapper.selectByToken(student.getToken()));
+        return html;
     }
 
     @Override

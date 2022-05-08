@@ -83,7 +83,7 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login")
     public ModelAndView login(@ModelAttribute("student") Student postStudent,
                               HttpSession session) {
         ModelAndView mv = new ModelAndView();

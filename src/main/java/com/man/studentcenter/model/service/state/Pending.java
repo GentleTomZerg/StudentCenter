@@ -11,7 +11,7 @@ import java.util.List;
 public class Pending implements State {
 
     @Override
-    public List<Activity> getTimeTable(Student student) {
+    public String getTimeTable(Student student) {
         return null;
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 public class Unregistered implements State {
 
     @Override
-    public List<Activity> getTimeTable(Student student) {
+    public String getTimeTable(Student student) {
         return null;
     }
 
