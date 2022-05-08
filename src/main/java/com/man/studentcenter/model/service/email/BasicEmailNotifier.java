@@ -1,5 +1,7 @@
 package com.man.studentcenter.model.service.email;
 
+import java.util.List;
+
 /**
  * @ClassName BasicEmailNotifier
  *
@@ -11,20 +13,20 @@ package com.man.studentcenter.model.service.email;
 public class BasicEmailNotifier implements Notifier {
 
 
-    @Override
-    public void assemble() {
-        System.out.print(toString());
-    }
 
     @Override
-    public void send(String message) {
-        System.out.print(message);
-        // To do:
-        // send email logic business
+    public List<String> assemble() {
+        stringList.clear();
+        stringList.add("THIS IS AN AUTOMATIC MESSAGE");
+        stringList.add("Hello!");
+        stringList.add("Just as a reminder that payment is available until 15/12/2022 23:59.");
+        return stringList;
     }
+
+
 
     @Override
     public String toString() {
-        return "BasicEmailNotifier{}.";
+        return " - This is a daily reminder for a student pending for registration.";
     }
 }
