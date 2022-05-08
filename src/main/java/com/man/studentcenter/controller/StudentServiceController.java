@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -118,7 +119,12 @@ public class StudentServiceController {
         mv.setViewName("optionalcourse");
         mv.addObject("courseList",courseList);
         List<Selection> selections = selectionMapper.selectAllByToken(student.getToken());
-        mv.addObject("selections",selections);
+        List<Course> selectedCourses = new ArrayList<Course>();
+        for(Selection selection: selections){
+            Course course = courseService.selectById(selection.getCourseid());
+            selectedCourses.add(course);
+        }
+        mv.addObject("selections",selectedCourses);
         return mv;
     }
 
