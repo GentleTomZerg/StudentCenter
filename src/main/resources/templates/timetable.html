@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/header"></head>
+<body>
+<div class="container-fluid bg-white d-flex p-0">
+    <div th:replace="layout/sidebar"></div>
+    <div class="content">
+        <div th:replace="layout/nvibar"></div>
+        <!-- Page code starts here -->
+        <div class="container-fluid pt-4 px-4" th:if="${session.student.status}ne'2'">
+            <div class="col-sm-12 col-xl-6">
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Oooops...</h4>
+                    <p>This content is only available for those students who have finished their registration
+                        process.</p>
+                    <hr>
+                    <p class="mb-0">Please come back when you registered!</p>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-8">
+                    <div class="h-100 bg-light rounded p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-5">
+                            <i class="fa fa-calendar-days me-2"></i>
+                            <h6 class="mb-0">Timetable</h6>
+                            <a href=""> </a>
+                        </div>
+                        <!-- Replace Your Code Here -->
+                        <div class="ms-3">
+                            <h4><a class="mt-2 mb-2">Monday</a></h4>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>9:00-10:00</td>
+                                    <td>Lecture 1</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>11:00-13:00</td>
+                                    <td>Lab Session</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>14:00-16:00</td>
+                                    <td>Group Study</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="ms-3">
+                            <h4><a class="mt-2 mb-2">Tuesday</a></h4>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>9:00-10:00</td>
+                                    <td>Lecture 1</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>11:00-13:00</td>
+                                    <td>Lab Session</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>14:00-16:00</td>
+                                    <td>Group Study</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="ms-3">
+                            <h4><a class="mt-2 mb-2">Wednesday</a></h4>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>9:00-10:00</td>
+                                    <td>Lecture 1</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>11:00-13:00</td>
+                                    <td>Lab Session</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>14:00-16:00</td>
+                                    <td>Group Study</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="ms-3">
+                            <h4><a class="mt-2 mb-2">Thursday</a></h4>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>9:00-10:00</td>
+                                    <td>Lecture 1</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>11:00-13:00</td>
+                                    <td>Lab Session</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>14:00-16:00</td>
+                                    <td>Group Study</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="ms-3">
+                            <h4><a class="mt-2 mb-2">Friday</a></h4>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>9:00-10:00</td>
+                                    <td>Lecture 1</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>11:00-13:00</td>
+                                    <td>Lab Session</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>14:00-16:00</td>
+                                    <td>Group Study</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End of Code Replacement -->
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-4">
+                    <div class="bg-light rounded p-4 mb-4">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <i class="fa fa-plus me-2"></i>
+                            <h6 class="mb-0">Add Tutorial Meeting</h6>
+                            <a data-bs-toggle="collapse" href="#formMeeting">Expand</a>
+                        </div>
+                        <div class="collapse mt-4" id="formMeeting">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="aname" class="form-label">Meeting Name</label>
+                                    <input type="text" class="form-control" id="aname">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="weekday" class="form-label">Weekday</label>
+                                    <select class="form-select" id="weekday"
+                                            aria-label="Floating label select example">
+                                        <option value="1">Monday</option>
+                                        <option value="2">Tuesday</option>
+                                        <option value="3">Wednesday</option>
+                                        <option value="4">Thursday</option>
+                                        <option value="5">Friday</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="start" class="form-label">Start Time</label>
+                                    <input type="time" id="start" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="end" class="form-label">End Time</label>
+                                    <input type="time" id="end" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="bg-light rounded p-4">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <i class="fa fa-plus me-2"></i>
+                            <h6 class="mb-0">Add Group Study</h6>
+                            <a data-bs-toggle="collapse" href="#formGroup">Expand</a>
+                        </div>
+                        <div class="collapse mt-4" id="formGroup">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="aname2" class="form-label">Meeting Name</label>
+                                    <input type="text" class="form-control" id="aname2">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="part" class="form-label">Participants</label>
+                                    <input type="text" class="form-control" id="part">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="weekday2" class="form-label">Weekday</label>
+                                    <select class="form-select" id="weekday2"
+                                            aria-label="Floating label select example">
+                                        <option value="1">Monday</option>
+                                        <option value="2">Tuesday</option>
+                                        <option value="3">Wednesday</option>
+                                        <option value="4">Thursday</option>
+                                        <option value="5">Friday</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="start2" class="form-label">Start Time</label>
+                                    <input type="time" id="start2" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="end2" class="form-label">End Time</label>
+                                    <input type="time" id="end2" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of page code -->
+</div>
+</div>
+</body>
+<footer th:replace="layout/footer"></footer>
+</html>

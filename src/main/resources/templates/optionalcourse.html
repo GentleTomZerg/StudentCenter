@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/header"></head>
+<body>
+<div class="container-fluid bg-white d-flex p-0">
+    <div th:replace="layout/sidebar"></div>
+    <div class="content">
+        <div th:replace="layout/nvibar"></div>
+        <!-- Page code starts here -->
+        <!-- Status Judgement -->
+        <div class="container-fluid pt-4 px-4" th:if="${session.student.status}ne'2'">
+            <div class="col-sm-12 col-xl-6">
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Oooops...</h4>
+                    <p>This content is only available for those students who have finished their registration
+                        process.</p>
+                    <hr>
+                    <p class="mb-0">Please come back when you registered!</p>
+                </div>
+            </div>
+        </div>
+        <!-- End of Status Judgement-->
+
+
+        <!-- End of page code -->
+    </div>
+</div>
+</body>
+<footer th:replace="layout/footer"></footer>
+</html>
