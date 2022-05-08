@@ -89,18 +89,18 @@ public class Student implements Observer {
     }
 
     public List<Activity> getTimetable() {
-        state.getTimeTable(this);
+        return state.getTimeTable(this);
     }
 
-    public void addMeeting(Activity activity){
+    public boolean addMeeting(Activity activity){
       List<Student> students = new ArrayList<>();
       students.add(this);
-      state.addMeeting(activity,students);
+      return state.addMeeting(activity,students)==1;
     };
 
-    public void addGroupStudy(Activity activity, List<Student> list){
+    public boolean addGroupStudy(Activity activity, List<Student> list){
         list.add(this);
-        state.addGroupStudy(activity,list);
+        return state.addGroupStudy(activity,list)==1;
     }
 
     public void chooseCourse(List<String> courseids) {
