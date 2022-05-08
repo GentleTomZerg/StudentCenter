@@ -105,7 +105,7 @@ public class StudentServiceController {
     @Autowired
     private SelectionMapper selectionMapper;
 
-    @RequestMapping(value = "/opt",method = RequestMethod.POST)
+    @RequestMapping(value = "/opt")
     public ModelAndView getOpt(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
@@ -117,6 +117,8 @@ public class StudentServiceController {
         }
         List<String> selectList = new ArrayList<>();
         mv.addObject("selList", selectList);
+        List<String> deleteList = new ArrayList<>();
+        mv.addObject("delList", deleteList);
         mv.addObject("page", "opt");
         List<Course> courseList = courseService.selectAll();
         mv.setViewName("optionalcourse");

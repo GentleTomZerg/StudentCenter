@@ -27,9 +27,9 @@
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <i class="fa fa-list me-2"></i>
                             <h6 class="mb-0">Optional Course List</h6>
-                            <a>     </a>
+                            <a> </a>
                         </div>
-                        <form class="row">
+                        <form th:action="@{/choose}" class="row">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -42,7 +42,8 @@
                                 <tr th:each="course:${courseList}">
                                     <td th:text="${course.courseid}">1</td>
                                     <td th:text="${course.cname}">John</td>
-                                    <td><input class="form-check-input" type="checkbox" th:value="${course.courseid}" th:field="*{selList}"></td>
+                                    <td><input class="form-check-input" type="checkbox" th:value="${course.courseid}"
+                                               th:field="*{selList}"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -54,25 +55,29 @@
                     <div class="bg-light rounded p-4 mb-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <i class="fa fa-plus me-2"></i>
-                            <h6 class="mb-0">Selected Courses</h6>
+                            <h6 class="mb-0">Delete Courses</h6>
                             <a></a>
                         </div>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">Course ID</th>
-                                <th scope="col">Course Name</th>
-                                <th scope="col">Operation</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="select:${selections}">
-                                <td th:text="${select.courseid}">1</td>
-                                <td th:text="${select.cname}">Example Name</td>
-                                <td><a th:href="@{'/opt/'+${select.courseid}}">Delete</a></td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <form th:action="@{/choose}" class="row">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Course ID</th>
+                                    <th scope="col">Course Name</th>
+                                    <th scope="col">Checkbox</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="select:${selections}">
+                                    <td th:text="${select.courseid}">1</td>
+                                    <td th:text="${select.cname}">Example Name</td>
+                                    <td><input class="form-check-input" type="checkbox" th:value="${select.courseid}"
+                                               th:field="*{delList}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </form>
                     </div>
                 </div>
             </div>
