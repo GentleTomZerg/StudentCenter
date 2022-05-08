@@ -96,7 +96,7 @@ public class StudentServiceController {
     private CourseService courseService;
 
     @RequestMapping("/opt")
-    public ModelAndView getOpt(HttpSession session, @RequestBody String userChoices) {
+    public ModelAndView getOpt(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         Student student = session.getAttribute("student") == null
                 ? null
@@ -106,11 +106,8 @@ public class StudentServiceController {
             return mv;
         }
 
-        String[] splittedUserChoice = userChoices.trim().split(",");
-        for (int i = 0; i < splittedUserChoice.length; i++)
-            splittedUserChoice[i] = splittedUserChoice[i].trim();
-
         List<Course> courseList = courseService.selectAll();
+        mv.addObject("courseList",courseList);
         return mv;
     }
 
