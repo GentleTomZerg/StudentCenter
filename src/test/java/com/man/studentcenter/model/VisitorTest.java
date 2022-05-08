@@ -37,14 +37,11 @@ public class VisitorTest {
     @Order(1)
     void testAdd() {
         List<String> courseids = new ArrayList<>();
-        courseids.add("4");
-        courseids.add("3");
-        courseids.add("2");
-        courseids.add("5");
-        courseids.add("1");
+        courseids.add("COMP24112");
+        courseids.add("COMP24011");
 
         Student student = new Student();
-        student.setToken(999);
+        student.setToken(888);
         List<String> list = service.addCourse(courseids, student);
         Assert.isTrue(list.size() == 0, "Result: " + list);
     }
@@ -56,13 +53,11 @@ public class VisitorTest {
     @Order(2)
     void testDelete() {
         List<String> courseids = new ArrayList<>();
-        courseids.add("4");
-        courseids.add("3");
-        courseids.add("2");
-        courseids.add("5");
-        courseids.add("1");
+        courseids.add("COMP24112");
+        courseids.add("COMP24011");
+
         Student student = new Student();
-        student.setToken(999);
+        student.setToken(888);
         List<String> list = service.deleteCourse(courseids, student);
         Assert.isTrue(list.size() == 0, "testDelete: " + list);
     }

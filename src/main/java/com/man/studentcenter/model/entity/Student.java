@@ -98,9 +98,9 @@ public class Student implements Observer {
       return state.addMeeting(activity,students)==1;
     };
 
-    public boolean addGroupStudy(Activity activity, List<Student> list){
+    public int addGroupStudy(Activity activity, List<Student> list){
         list.add(this);
-        return state.addGroupStudy(activity,list)==1;
+        return state.addGroupStudy(activity,list);
     }
 
     public List<String> chooseCourse(List<String> courseids) {

@@ -43,8 +43,7 @@ public abstract class ActivityTemplate {
         activities = new ArrayList<>();
         setName(name);
         setTime(day, start, end);
-        setParticipant(list);
-        return addActivity();
+        return setParticipant(list);
     }
 
     //default implementation
@@ -62,10 +61,13 @@ public abstract class ActivityTemplate {
     private void printTips() {
         System.out.println("Building activity with name, participant, weekday, starting time, ending time.");
     }
+    public int addActivity() {
+        return mapper.insert(activity);
+    }
 
     //methods to be implemented by subclasses
-    public abstract void setParticipant(List<Student> list);
+    public abstract int setParticipant(List<Student> list);
 
-    public abstract int addActivity();
+
 
 }

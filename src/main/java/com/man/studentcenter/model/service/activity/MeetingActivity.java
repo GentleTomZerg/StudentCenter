@@ -16,13 +16,10 @@ import java.util.List;
 @Component
 public class MeetingActivity extends ActivityTemplate {
     @Override
-    public void setParticipant(List<Student> list) {
+    public int setParticipant(List<Student> list) {
         System.out.println(list.get(0));
         super.activity.setToken(list.get(0).getToken());
+        return addActivity();
     }
 
-    @Override
-    public int addActivity() {
-        return mapper.insert(super.activity);
-    }
 }

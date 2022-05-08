@@ -24,25 +24,17 @@ public class GroupStudyActivity extends ActivityTemplate {
 
 
     @Override
-    public void setParticipant(List<Student> list) {
+    public int setParticipant(List<Student> list) {
         for (Student student :
                 list) {
             if (studentMapper.selectByToken(student.getToken()).getStatus() == 2) {
                 activity.setToken(student.getToken());
-                activities.add(activity);
+                addActivity();
             }else {
-                activities.clear();
-                break;
+                return student.getToken();
             }
         }
+        return 1;
     }
 
-    @Override
-    public int addActivity() {
-        for (Activity a :
-                activities) {
-            mapper.insert(a);
-        }
-        return activities.size();
-    }
 }

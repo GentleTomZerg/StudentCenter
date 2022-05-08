@@ -162,8 +162,9 @@ public class StudentServiceController {
         list.add(student1);
         System.out.println(list);
         mv.addObject("page", "timetable");
-        if (!student.addGroupStudy(activity, list)) {
-            mv.addObject("errorMessage", "Add failed.");
+        int resultCode = student.addGroupStudy(activity, list);
+        if (resultCode!=1) {
+            mv.addObject("errorMessage", "Participants:"+resultCode+" Cannot be invited.");
         }
         mv.setViewName("redirect:/timetable");
         return mv;
