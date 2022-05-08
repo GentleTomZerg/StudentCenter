@@ -88,8 +88,19 @@ public class Student implements Observer {
         return Objects.hash(token);
     }
 
-    public void getTimetable() {
-        state.getTimeTable();
+    public List<Activity> getTimetable() {
+        state.getTimeTable(this);
+    }
+
+    public void addMeeting(Activity activity){
+      List<Student> students = new ArrayList<>();
+      students.add(this);
+      state.addMeeting(activity,students);
+    };
+
+    public void addGroupStudy(Activity activity, List<Student> list){
+        list.add(this);
+        state.addGroupStudy(activity,list);
     }
 
     public void chooseCourse(List<String> courseids) {

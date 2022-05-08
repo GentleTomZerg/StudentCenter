@@ -1,5 +1,6 @@
 package com.man.studentcenter.controller;
 
+import com.man.studentcenter.model.entity.Activity;
 import com.man.studentcenter.model.entity.Student;
 import com.man.studentcenter.model.mapper.SubscribeMapper;
 import com.man.studentcenter.model.service.email.DailyReminderService;
@@ -133,6 +134,36 @@ public class StudentServiceController {
         }
 
         if (student.getStatus() == 1) reminderService.scheduled();//前端展示该信息 List<String>
+        return mv;
+    }
+
+    @RequestMapping("/add/meeting")
+    public ModelAndView addMeeting(Activity meeting, HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        Student student = session.getAttribute("student") == null
+                ? null
+                : (Student) session.getAttribute("student");
+        if (student == null) {
+            mv.setViewName("login");
+            return mv;
+        }
+
+        student.addMeeting(meeting);
+        return mv;
+    }
+
+    @RequestMapping("/add/groupstudy")
+    public ModelAndView addGroupStudy(Activity activity, List<Student> list, HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        Student student = session.getAttribute("student") == null
+                ? null
+                : (Student) session.getAttribute("student");
+        if (student == null) {
+            mv.setViewName("login");
+            return mv;
+        }
+
+        student.addGroupStudy(activity,list);
         return mv;
     }
 }
