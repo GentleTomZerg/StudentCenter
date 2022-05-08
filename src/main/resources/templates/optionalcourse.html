@@ -20,6 +20,48 @@
             </div>
         </div>
         <!-- End of Status Judgement-->
+        <div class="container-fluid pt-4 px-4" th:unless="${session.student.status}ne'2'">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-6">
+                    <div class="h-100 bg-light rounded p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <i class="fa fa-list me-2"></i>
+                            <h6 class="mb-0">Optional Course List</h6>
+                            <a>     </a>
+                        </div>
+                        <form class="row">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Course ID</th>
+                                    <th scope="col">Course Name</th>
+                                    <th scope="col">CheckBox</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="course:${courseList}">
+                                    <td th:text="${course.courseid}">1</td>
+                                    <td th:text="${course.cname}">John</td>
+                                    <td><input class="form-check-input" type="checkbox" value="${course.courseid}"
+                                               id="flexCheckDefault"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-6">
+                    <div class="bg-light rounded p-4 mb-4">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <i class="fa fa-plus me-2"></i>
+                            <h6 class="mb-0">Selected Courses</h6>
+                            <a></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <!-- End of page code -->

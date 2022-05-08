@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -105,8 +106,9 @@ public class StudentServiceController {
             mv.setViewName("login");
             return mv;
         }
-
+        mv.addObject("page", "opt");
         List<Course> courseList = courseService.selectAll();
+        mv.setViewName("optionalcourse");
         mv.addObject("courseList",courseList);
         return mv;
     }
