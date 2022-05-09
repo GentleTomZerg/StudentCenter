@@ -62,7 +62,7 @@
                 <p class="text-center" ><a class="btn btn-purple btn-sm" data-bs-toggle="collapse" aria-expanded="false" href="#UsernameLogin" style="text-decoration:none;">Login with Username and Password</a></p>
             </div>
             <div class="collapse" id="UsernameLogin">
-                <form th:action="@{/}" method="post" th:object="${student}">
+                <form th:action="@{/login}" method="post" th:object="${student}">
                     <label>Username</label>
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
